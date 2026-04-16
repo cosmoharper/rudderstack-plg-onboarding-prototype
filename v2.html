@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RudderStack PLG Onboarding — V2 Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   V2 DESIGN TOKENS — FigJam-inspired
+   PolySans headings (fallback to system), Inter body
+   Split layout with geometric brand art
+   ============================================ */
+@font-face {
+  font-family: 'PolySans';
+  src: local('PolySans'), local('PolySans-Median');
+  font-weight: 500;
+  font-style: normal;
+}
+:root {
+  --rs-blue: #3E6FDF;
+  --rs-blue-dark: #1A4FC4;
+  --rs-blue-light: #EBF0FD;
+  --rs-orange: #F0935A;
+  --rs-cream: #FDE8D8;
+  --rs-navy: #1B2559;
+  --rs-white: #FFFFFF;
+  --rs-grey-50: #F8F9FB;
+  --rs-grey-100: #E8ECF0;
+  --rs-grey-200: #C4CCD6;
+  --rs-grey-400: #8E99A8;
+  --rs-grey-600: #5A6578;
+  --rs-grey-800: #2D3442;
+  --rs-grey-900: #1A1F2B;
+  --rs-green: #22C55E;
+  --rs-font-heading: 'PolySans', 'Inter', system-ui, sans-serif;
+  --rs-font-body: 'Inter', system-ui, sans-serif;
+  --rs-radius-sm: 6px;
+  --rs-radius-md: 8px;
+  --rs-radius-lg: 12px;
+  --rs-radius-xl: 16px;
+  --rs-radius-pill: 100px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--rs-font-body); font-size: 14px; color: var(--rs-grey-900); background: var(--rs-white); line-height: 1.55; }
+
+/* ---- NAV BAR ---- */
+.v2-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--rs-grey-900); padding: 8px 24px;
+  display: flex; gap: 4px; overflow-x: auto; white-space: nowrap; align-items: center;
+}
+.v2-nav a { color: #8E99A8; text-decoration: none; font-size: 12px; padding: 4px 10px; border-radius: 4px; transition: all .15s; }
+.v2-nav a:hover, .v2-nav a.active { color: white; background: #353A44; }
+.v2-nav .nl { color: #5A6578; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; padding: 4px 8px; }
+
+/* ---- SHARED ---- */
+.screen { display: none; }
+.screen:first-of-type { display: block; }
+
+/* Logo */
+.rs-logo { display: flex; align-items: center; gap: 8px; }
+.rs-logo svg { width: 28px; height: 28px; }
+.rs-logo span { font-family: var(--rs-font-heading); font-size: 18px; font-weight: 500; color: var(--rs-grey-900); }
+
+/* ---- SPLIT LAYOUT (signup + setup screens) ---- */
+.split { display: flex; min-height: 100vh; padding-top: 44px; }
+.split-form { flex: 1; padding: 48px 64px; max-width: 600px; display: flex; flex-direction: column; justify-content: center; }
+.split-art { flex: 1; display: flex; align-items: center; justify-content: center; padding: 48px; background: var(--rs-grey-50); position: relative; overflow: hidden; }
+
+/* Geometric art panel — CSS only recreation of the brand pattern */
+.geo-art { width: 100%; max-width: 480px; aspect-ratio: 3/4; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; gap: 8px; border-radius: var(--rs-radius-xl); overflow: hidden; }
+.geo-block { border-radius: var(--rs-radius-lg); overflow: hidden; position: relative; }
+.geo-block::after { content: ''; position: absolute; inset: 0; }
+.gb-1 { background: #C7D5F5; }
+.gb-1::after { background: var(--rs-orange); border-radius: 50%; width: 120%; height: 80%; top: 10%; left: -10%; position: absolute; }
+.gb-2 { background: var(--rs-blue); }
+.gb-2::after { background: var(--rs-orange); width: 100%; height: 100%; clip-path: polygon(100% 0, 0 0, 100% 100%); position: absolute; }
+.gb-3 { background: var(--rs-cream); }
+.gb-4 { background: var(--rs-blue); }
+.gb-4::after { background: var(--rs-cream); width: 70%; height: 70%; border-radius: 0 0 100% 0; position: absolute; top: 0; left: 0; }
+.gb-5 { background: var(--rs-orange); grid-column: span 2; }
+.gb-5::after { background: var(--rs-blue); border-radius: 50% 50% 0 0; width: 60%; height: 50%; position: absolute; bottom: 0; left: 20%; }
+.gb-6 { background: var(--rs-navy); }
+.gb-6::after { background: var(--rs-blue); width: 100%; height: 100%; clip-path: circle(50% at 0% 100%); position: absolute; }
+
+/* ---- HEADINGS ---- */
+h1 { font-family: var(--rs-font-heading); font-size: 28px; font-weight: 500; color: var(--rs-grey-900); margin-bottom: 6px; }
+h2 { font-family: var(--rs-font-heading); font-size: 24px; font-weight: 500; color: var(--rs-grey-900); margin-bottom: 4px; }
+h3 { font-family: var(--rs-font-heading); font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+.subtitle { color: var(--rs-grey-600); font-size: 14px; margin-bottom: 32px; }
+
+/* ---- FORM ELEMENTS ---- */
+.fg { margin-bottom: 20px; }
+.fg label { display: block; font-size: 13px; font-weight: 500; color: var(--rs-grey-800); margin-bottom: 4px; }
+.fg .opt { color: var(--rs-grey-400); font-weight: 400; }
+.fi { width: 100%; height: 40px; padding: 0 12px; border: 1px solid var(--rs-grey-100); border-radius: var(--rs-radius-sm); font-family: var(--rs-font-body); font-size: 14px; color: var(--rs-grey-900); outline: none; transition: border-color .15s; }
+.fi:focus { border-color: var(--rs-blue); box-shadow: 0 0 0 3px var(--rs-blue-light); }
+.fi::placeholder { color: var(--rs-grey-200); }
+select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238E99A8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+/* Radio / Checkbox groups */
+.rg { display: flex; flex-direction: column; gap: 8px; }
+.ro { display: flex; align-items: center; gap: 10px; padding: 0; cursor: pointer; font-size: 14px; }
+.ro input[type="radio"], .ro input[type="checkbox"] { accent-color: var(--rs-blue); width: 16px; height: 16px; margin: 0; }
+.ro-desc { font-size: 12px; color: var(--rs-grey-400); }
+
+/* Pill buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--rs-font-body); font-weight: 500; cursor: pointer; border: none; transition: all .15s; text-decoration: none; }
+.btn-pill { height: 44px; padding: 0 32px; border-radius: var(--rs-radius-pill); font-size: 15px; }
+.btn-pill-sm { height: 36px; padding: 0 20px; border-radius: var(--rs-radius-pill); font-size: 13px; }
+.btn-blue { background: var(--rs-blue); color: white; }
+.btn-blue:hover { background: var(--rs-blue-dark); }
+.btn-outline { background: white; color: var(--rs-grey-800); border: 1px solid var(--rs-grey-100); }
+.btn-outline:hover { border-color: var(--rs-grey-200); background: var(--rs-grey-50); }
+.btn-full { width: 100%; }
+.btn-ghost { background: none; color: var(--rs-blue); font-size: 14px; padding: 0; border: none; }
+.btn-ghost:hover { text-decoration: underline; }
+.btn-green { background: var(--rs-green); color: white; }
+
+/* Divider */
+.dv { display: flex; align-items: center; gap: 16px; margin: 24px 0; color: var(--rs-grey-400); font-size: 13px; text-transform: uppercase; letter-spacing: .5px; }
+.dv::before, .dv::after { content: ''; flex: 1; height: 1px; background: var(--rs-grey-100); }
+
+/* ---- BREADCRUMB NAV (Install screens) ---- */
+.breadcrumb { display: flex; align-items: center; gap: 0; margin-bottom: 32px; flex-wrap: wrap; }
+.bc-item { font-size: 13px; color: var(--rs-grey-400); padding: 4px 0; }
+.bc-item.active { color: var(--rs-blue); font-weight: 500; }
+.bc-item.complete { color: var(--rs-grey-800); }
+.bc-sep { color: var(--rs-grey-200); margin: 0 10px; font-size: 12px; }
+
+/* ---- CENTERED LAYOUT (Install screens) ---- */
+.centered { min-height: 100vh; padding: 44px 64px 48px; max-width: 960px; margin: 0 auto; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 80px; }
+
+/* ---- SDK CHIPS ---- */
+.sdk-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+.sdk-chip { display: flex; align-items: center; gap: 8px; padding: 10px 20px; border: 1.5px solid var(--rs-grey-100); border-radius: var(--rs-radius-pill); font-size: 14px; font-weight: 500; cursor: pointer; transition: all .15s; background: white; }
+.sdk-chip:hover { border-color: var(--rs-blue); }
+.sdk-chip.selected { border-color: var(--rs-blue); background: var(--rs-blue-light); color: var(--rs-blue-dark); }
+.sdk-chip .sdk-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+
+/* ---- DESTINATION CARDS (4-col grid) ---- */
+.dest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0; }
+.dest-card { display: flex; align-items: center; gap: 12px; padding: 16px; border: 1.5px solid var(--rs-grey-100); border-radius: var(--rs-radius-md); cursor: pointer; transition: all .15s; }
+.dest-card:hover { border-color: var(--rs-blue); background: var(--rs-blue-light); }
+.dest-card.selected { border-color: var(--rs-blue); background: var(--rs-blue-light); }
+.dest-icon { width: 32px; height: 32px; border-radius: var(--rs-radius-sm); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.dest-name { font-size: 13px; font-weight: 500; }
+
+/* ---- PLAN CARDS ---- */
+.plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0; }
+.plan-card { border: 1.5px solid var(--rs-grey-100); border-radius: var(--rs-radius-lg); padding: 24px; position: relative; }
+.plan-card.recommended { border-color: var(--rs-blue); }
+.plan-tag { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--rs-grey-400); margin-bottom: 4px; }
+.plan-name { font-family: var(--rs-font-heading); font-size: 18px; font-weight: 500; margin-bottom: 12px; }
+.plan-price { font-family: var(--rs-font-heading); font-size: 28px; font-weight: 500; }
+.plan-price-note { font-size: 12px; color: var(--rs-grey-400); margin-bottom: 16px; }
+.plan-desc { font-size: 12px; color: var(--rs-grey-600); margin-bottom: 16px; line-height: 1.5; }
+.plan-features { list-style: none; font-size: 12px; color: var(--rs-grey-600); }
+.plan-features li { padding: 3px 0; display: flex; align-items: center; gap: 6px; }
+.plan-features li::before { content: ''; display: inline-block; width: 14px; height: 14px; background: var(--rs-grey-100); border-radius: 50%; flex-shrink: 0; }
+
+/* ---- CODE BLOCK ---- */
+.code { background: var(--rs-grey-900); color: #D4D8E0; padding: 20px; border-radius: var(--rs-radius-md); font-family: 'SF Mono', 'Consolas', monospace; font-size: 13px; line-height: 1.7; position: relative; margin: 16px 0; overflow-x: auto; }
+.code .cp { position: absolute; top: 8px; right: 8px; background: #474E5A; color: #B6C0CD; border: none; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
+.ck { color: #C084FC; }
+.cs { color: #86EFAC; }
+
+/* ---- TOGGLE ---- */
+.tg-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+.tg { width: 36px; height: 20px; background: var(--rs-blue); border-radius: 10px; position: relative; cursor: pointer; flex-shrink: 0; }
+.tg::after { content: ''; width: 16px; height: 16px; background: white; border-radius: 50%; position: absolute; top: 2px; right: 2px; }
+.tg.off { background: var(--rs-grey-200); }
+.tg.off::after { right: auto; left: 2px; }
+.tg-text { font-size: 13px; }
+.tg-sub { font-size: 11px; color: var(--rs-grey-400); }
+
+/* ---- QUICK START DRAWER ---- */
+.qs-layout { display: flex; min-height: 100vh; padding-top: 44px; }
+.qs-sidebar { width: 56px; background: white; border-right: 1px solid var(--rs-grey-100); display: flex; flex-direction: column; align-items: center; padding: 16px 0; gap: 16px; }
+.qs-sidebar-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--rs-grey-400); font-size: 16px; cursor: pointer; }
+.qs-sidebar-icon:hover { background: var(--rs-grey-50); }
+.qs-panel { width: 460px; background: white; border-right: 1px solid var(--rs-grey-100); overflow-y: auto; max-height: calc(100vh - 44px); }
+.qs-hdr { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--rs-grey-100); position: sticky; top: 0; background: white; z-index: 10; }
+.qs-hdr-left { display: flex; align-items: center; gap: 8px; }
+.qs-hdr-title { font-family: var(--rs-font-heading); font-weight: 500; font-size: 16px; }
+.qs-hdr-count { color: var(--rs-grey-400); font-size: 13px; }
+.qs-close { background: none; border: none; color: var(--rs-grey-400); font-size: 18px; cursor: pointer; width: 28px; height: 28px; border-radius: 4px; }
+.qs-close:hover { background: var(--rs-grey-50); }
+.qs-sec { padding: 16px 20px 0; border-bottom: 1px solid var(--rs-grey-100); }
+.qs-sec-hdr { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--rs-grey-400); display: flex; justify-content: space-between; padding-bottom: 8px; }
+.qs-sec-hdr.locked { color: var(--rs-grey-200); }
+.qs-sub-hdr { font-size: 11px; color: var(--rs-grey-400); padding: 6px 0; border-bottom: 1px dashed var(--rs-grey-100); margin-bottom: 4px; }
+.qs-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; cursor: pointer; }
+.qs-row:hover { background: var(--rs-grey-50); margin: 0 -20px; padding: 8px 20px; }
+.qs-dot { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+.qs-dot.done { background: var(--rs-green); color: white; }
+.qs-dot.curr { background: var(--rs-blue); color: white; }
+.qs-dot.pend { border: 2px solid var(--rs-grey-200); }
+.qs-dot.lock { border: 2px solid var(--rs-grey-200); color: var(--rs-grey-200); font-size: 8px; }
+.qs-dot.grey { border: 2px dashed var(--rs-grey-200); }
+.qs-title { flex: 1; font-size: 13px; font-weight: 500; }
+.qs-title.lock { color: var(--rs-grey-200); }
+.qs-title.grey { color: var(--rs-grey-200); font-style: italic; }
+.qs-arrow { color: var(--rs-grey-200); font-size: 12px; }
+.qs-badge { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .3px; padding: 2px 6px; border-radius: 3px; background: #F3E8FF; color: #7C3AED; }
+.qs-exp { background: var(--rs-grey-50); border: 1px solid var(--rs-grey-100); border-radius: var(--rs-radius-md); padding: 14px; margin: 6px 0 10px; font-size: 13px; color: var(--rs-grey-600); line-height: 1.5; }
+.qs-exp .btn { margin-top: 10px; }
+.qs-main { flex: 1; background: var(--rs-grey-50); display: flex; align-items: center; justify-content: center; }
+.qs-main-ph { text-align: center; color: var(--rs-grey-200); }
+
+/* Tag Manager banner */
+.tm-banner { background: linear-gradient(135deg, var(--rs-blue-light), #F3E8FF); border: 1px solid #C7D5F5; border-radius: var(--rs-radius-md); padding: 14px; margin: 8px 0; }
+.tm-banner h4 { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.tm-banner p { font-size: 12px; color: var(--rs-grey-600); margin-bottom: 8px; }
+
+/* Specialist banner */
+.spec-banner { display: flex; align-items: center; gap: 10px; background: var(--rs-blue-light); border: 1px solid #C7D5F5; border-radius: var(--rs-radius-md); padding: 10px 14px; margin-bottom: 8px; font-size: 13px; }
+.spec-banner a { color: var(--rs-blue); font-weight: 500; text-decoration: none; white-space: nowrap; }
+
+/* CTA row */
+.cta-row { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; }
+.cta-row-end { display: flex; justify-content: flex-end; margin-top: 32px; }
+
+/* Region cards */
+.region-row { display: flex; gap: 12px; }
+.region-card { flex: 1; display: flex; align-items: center; gap: 10px; padding: 12px 16px; border: 1.5px solid var(--rs-grey-100); border-radius: var(--rs-radius-md); cursor: pointer; transition: all .15s; }
+.region-card:hover { border-color: var(--rs-blue); }
+.region-card.selected { border-color: var(--rs-blue); background: var(--rs-blue-light); }
+.region-card input { accent-color: var(--rs-blue); }
+
+/* Goal cards (same 2x3 grid) */
+.goal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+.goal-card { border: 1.5px solid var(--rs-grey-100); border-radius: var(--rs-radius-lg); padding: 20px; cursor: pointer; transition: all .15s; position: relative; }
+.goal-card:hover { border-color: var(--rs-blue); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.goal-card.selected { border-color: var(--rs-blue); background: var(--rs-blue-light); }
+.goal-card .gc-icon { font-size: 24px; margin-bottom: 8px; }
+.goal-card .gc-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.goal-card .gc-desc { font-size: 12px; color: var(--rs-grey-600); line-height: 1.4; }
+.goal-card .gc-check { position: absolute; top: 12px; right: 12px; width: 18px; height: 18px; border: 2px solid var(--rs-grey-200); border-radius: 4px; }
+.goal-card.selected .gc-check { background: var(--rs-blue); border-color: var(--rs-blue); }
+
+/* Password hint */
+.pw-hint { font-size: 11px; color: var(--rs-grey-400); margin-top: 4px; }
+
+/* Invite rows */
+.inv-row { display: flex; gap: 12px; align-items: end; margin-bottom: 12px; }
+.inv-row .fg { flex: 1; margin-bottom: 0; }
+.inv-roles { display: flex; gap: 6px; padding-bottom: 8px; }
+.inv-role { font-size: 11px; padding: 4px 10px; border: 1px solid var(--rs-grey-100); border-radius: var(--rs-radius-pill); cursor: pointer; color: var(--rs-grey-600); }
+.inv-role.sel { border-color: var(--rs-blue); background: var(--rs-blue-light); color: var(--rs-blue-dark); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="v2-nav">
+  <span class="nl">Signup</span>
+  <a href="#" onclick="show('s1a')" class="active">Email</a>
+  <a href="#" onclick="show('s1b')">Profile</a>
+  <span class="nl">Setup</span>
+  <a href="#" onclick="show('s2a')">About You</a>
+  <a href="#" onclick="show('s2b')">Tech Stack</a>
+  <a href="#" onclick="show('s2c')">Goals</a>
+  <span class="nl">App</span>
+  <a href="#" onclick="show('qs')">Quick Start</a>
+  <span class="nl" style="opacity:.4">Phase 2</span>
+  <a href="#" onclick="show('i1')" style="opacity:.4">Install</a>
+</nav>
+
+<!-- ============ SCREEN 1a: EMAIL ============ -->
+<div id="s1a" class="screen">
+<div class="split">
+  <div class="split-form">
+    <div class="rs-logo" style="margin-bottom:48px;">
+      <svg viewBox="0 0 32 32" fill="none" width="28" height="28"><path d="M0 0C0 17.67 14.33 32 32 32V0H0z" fill="#3E6FDF"/></svg>
+      <span>rudderstack</span>
+    </div>
+    <h1>Sign up</h1>
+    <p class="subtitle">Create a free account</p>
+    <div class="fg">
+      <label>Email</label>
+      <input class="fi" type="email" placeholder="name@workemail.com">
+    </div>
+    <button class="btn btn-pill btn-outline btn-full" style="margin-bottom:16px;">Sign up</button>
+    <div class="dv">OR</div>
+    <button class="btn btn-pill btn-outline btn-full" style="gap:10px;">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+      Sign up with Google
+    </button>
+    <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--rs-grey-400);">Already have an account? <a href="#" style="color:var(--rs-blue);text-decoration:none;">Login</a></p>
+    <p style="text-align:center;margin-top:8px;"><a href="#" style="color:var(--rs-blue);text-decoration:none;font-size:13px;">Looking to use RudderStack Open Source? &rarr;</a></p>
+    <p style="text-align:center;margin-top:24px;font-size:11px;color:var(--rs-grey-400);">By signing up, I agree to RudderStack's <a href="#" style="color:var(--rs-grey-600);">Privacy Policy</a> and <a href="#" style="color:var(--rs-grey-600);">Terms of Service</a></p>
+  </div>
+  <div class="split-art">
+    <div class="geo-art">
+      <div class="geo-block gb-1"></div>
+      <div class="geo-block gb-2"></div>
+      <div class="geo-block gb-3"></div>
+      <div class="geo-block gb-4"></div>
+      <div class="geo-block gb-5"></div>
+      <div class="geo-block gb-6"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ SCREEN 1b: PROFILE ============ -->
+<div id="s1b" class="screen">
+<div class="split">
+  <div class="split-form">
+    <div class="rs-logo" style="margin-bottom:48px;">
+      <svg viewBox="0 0 32 32" fill="none" width="28" height="28"><path d="M0 0C0 17.67 14.33 32 32 32V0H0z" fill="#3E6FDF"/></svg>
+      <span>rudderstack</span>
+    </div>
+    <h1>Complete your account</h1>
+    <p class="subtitle">We sent a verification link to <strong>jane@company.com</strong></p>
+    <div class="fg"><label>Your name <span style="color:#A4243E">*</span></label><input class="fi" placeholder="Jane Doe"></div>
+    <div class="fg"><label>Organization name <span style="color:#A4243E">*</span></label><input class="fi" placeholder="Acme Inc."></div>
+    <div class="fg"><label>Your role <span style="color:#A4243E">*</span></label><select class="fi"><option disabled selected>Select one...</option><option>Engineering / Data Engineering</option><option>Data / Analytics</option><option>Marketing / Growth</option><option>Product</option><option>Founder / Executive</option><option>Something else</option></select></div>
+    <div class="fg"><label>Password <span style="color:#A4243E">*</span></label><input class="fi" type="password" placeholder="Min 8 characters"><p class="pw-hint">Must include uppercase, lowercase, number, and special character</p></div>
+    <div class="fg">
+      <label>Where should your workspace run? <span style="color:#A4243E">*</span></label>
+      <div class="region-row">
+        <label class="region-card selected"><input type="radio" name="r2" checked> &#x1f1fa;&#x1f1f8; United States</label>
+        <label class="region-card"><input type="radio" name="r2"> &#x1f1ea;&#x1f1fa; European Union</label>
+      </div>
+      <p class="pw-hint">Data residency can't be changed later.</p>
+    </div>
+    <div class="fg"><label>Where did you hear about us? <span class="opt">(optional)</span></label><select class="fi"><option disabled selected>Select one...</option><option>Online search</option><option>Social media</option><option>Word of mouth</option><option>Podcast</option><option>Event</option><option>Other</option></select></div>
+    <button class="btn btn-pill btn-blue btn-full">Create account</button>
+    <p style="text-align:center;margin-top:16px;font-size:12px;color:var(--rs-grey-400);">30-day free trial &mdash; no credit card required</p>
+  </div>
+  <div class="split-art">
+    <div class="geo-art"><div class="geo-block gb-1"></div><div class="geo-block gb-2"></div><div class="geo-block gb-3"></div><div class="geo-block gb-4"></div><div class="geo-block gb-5"></div><div class="geo-block gb-6"></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ SCREEN 2a: ABOUT YOU ============ -->
+<div id="s2a" class="screen">
+<div class="split">
+  <div class="split-form">
+    <div class="rs-logo" style="margin-bottom:48px;">
+      <svg viewBox="0 0 32 32" fill="none" width="28" height="28"><path d="M0 0C0 17.67 14.33 32 32 32V0H0z" fill="#3E6FDF"/></svg>
+      <span>rudderstack</span>
+    </div>
+    <h1>Tell us a bit about yourself</h1>
+    <p class="subtitle">This will help us create an experience just for you.</p>
+    <div class="fg">
+      <label>Which best describes what you do?</label>
+      <div class="rg">
+        <label class="ro"><input type="radio" name="p2"> Technical IC / Individual</label>
+        <label class="ro"><input type="radio" name="p2"> Business User</label>
+        <label class="ro"><input type="radio" name="p2"> Leadership</label>
+      </div>
+    </div>
+    <div class="fg">
+      <label>What's your preference?</label>
+      <div class="rg">
+        <label class="ro"><input type="radio" name="pref2"> Command line (CLI, SDKs, IaC)</label>
+        <label class="ro"><input type="radio" name="pref2"> Visual UI (point-and-click)</label>
+        <label class="ro"><input type="radio" name="pref2"> API / programmatic</label>
+      </div>
+    </div>
+    <div class="fg">
+      <label>What's your preferred language?</label>
+      <div class="rg" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+        <label class="ro"><input type="checkbox"> Python</label>
+        <label class="ro"><input type="checkbox" checked> Javascript</label>
+        <label class="ro"><input type="checkbox"> Go</label>
+        <label class="ro"><input type="checkbox"> Java / Kotlin</label>
+        <label class="ro"><input type="checkbox"> Ruby</label>
+      </div>
+    </div>
+    <div class="cta-row">
+      <span></span>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <button class="btn btn-pill btn-blue" style="min-width:180px;">Next</button>
+        <button class="btn btn-ghost">Skip</button>
+      </div>
+    </div>
+  </div>
+  <div class="split-art">
+    <div class="geo-art"><div class="geo-block gb-1"></div><div class="geo-block gb-2"></div><div class="geo-block gb-3"></div><div class="geo-block gb-4"></div><div class="geo-block gb-5"></div><div class="geo-block gb-6"></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ SCREEN 2b: TECH STACK ============ -->
+<div id="s2b" class="screen">
+<div class="split">
+  <div class="split-form" style="max-width:640px;">
+    <div class="rs-logo" style="margin-bottom:48px;">
+      <svg viewBox="0 0 32 32" fill="none" width="28" height="28"><path d="M0 0C0 17.67 14.33 32 32 32V0H0z" fill="#3E6FDF"/></svg>
+      <span>rudderstack</span>
+    </div>
+    <h1>Tell us about your tech stack</h1>
+    <p class="subtitle">We'll recommend the right sources and destinations.</p>
+    <div class="fg">
+      <label>Are you migrating from another tool?</label>
+      <div class="rg">
+        <label class="ro"><input type="radio" name="mig2"> Segment</label>
+        <label class="ro"><input type="radio" name="mig2"> mParticle</label>
+        <label class="ro"><input type="radio" name="mig2"> Kafka</label>
+        <label class="ro"><input type="radio" name="mig2" checked> Not migrating</label>
+      </div>
+    </div>
+    <div class="fg">
+      <label>Which data warehouse do you use?</label>
+      <div class="sdk-chips">
+        <span class="sdk-chip selected" onclick="this.classList.toggle('selected')"><span class="sdk-icon">&#x2744;&#xfe0f;</span> Snowflake</span>
+        <span class="sdk-chip" onclick="this.classList.toggle('selected')"><span class="sdk-icon">&#x1f4ca;</span> BigQuery</span>
+        <span class="sdk-chip" onclick="this.classList.toggle('selected')"><span class="sdk-icon">&#x1f534;</span> Redshift</span>
+        <span class="sdk-chip" onclick="this.classList.toggle('selected')"><span class="sdk-icon">&#x1f9f1;</span> Databricks</span>
+        <span class="sdk-chip" onclick="this.classList.toggle('selected')"><span class="sdk-icon">&#x1f418;</span> Postgres</span>
+        <span class="sdk-chip" onclick="this.classList.toggle('selected')">I don't have one</span>
+      </div>
+    </div>
+    <div class="fg">
+      <label>What other tools does your team use? <span class="opt">(optional)</span></label>
+      <input class="fi" placeholder="&#x1f50d; Search tools... e.g. Amplitude, Slack, dbt">
+    </div>
+    <div class="fg">
+      <label>Expected event volume per month</label>
+      <div class="sdk-chips">
+        <span class="sdk-chip" onclick="chipSelect(this)">&lt; 250K</span>
+        <span class="sdk-chip selected" onclick="chipSelect(this)">250K &ndash; 1M</span>
+        <span class="sdk-chip" onclick="chipSelect(this)">1M &ndash; 10M</span>
+        <span class="sdk-chip" onclick="chipSelect(this)">10M &ndash; 25M</span>
+        <span class="sdk-chip" onclick="chipSelect(this)">25M+</span>
+        <span class="sdk-chip" onclick="chipSelect(this)">Not sure</span>
+      </div>
+    </div>
+    <div class="cta-row"><button class="btn btn-pill btn-outline">Back</button><div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><button class="btn btn-pill btn-blue" style="min-width:180px;">Next</button><button class="btn btn-ghost">Skip</button></div></div>
+  </div>
+  <div class="split-art">
+    <div class="geo-art"><div class="geo-block gb-1"></div><div class="geo-block gb-2"></div><div class="geo-block gb-3"></div><div class="geo-block gb-4"></div><div class="geo-block gb-5"></div><div class="geo-block gb-6"></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ SCREEN 2c: GOALS ============ -->
+<div id="s2c" class="screen">
+<div class="split">
+  <div class="split-form" style="max-width:640px;">
+    <div class="rs-logo" style="margin-bottom:48px;">
+      <svg viewBox="0 0 32 32" fill="none" width="28" height="28"><path d="M0 0C0 17.67 14.33 32 32 32V0H0z" fill="#3E6FDF"/></svg>
+      <span>rudderstack</span>
+    </div>
+    <h1>What do you want to do with RudderStack?</h1>
+    <p class="subtitle">Pick all that apply. We'll personalize your setup.</p>
+    <div class="goal-grid">
+      <div class="goal-card selected" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f4e1;</div><div class="gc-title">Collect & route event data</div><div class="gc-desc">Simplify first-party data collection across web, mobile, & server</div></div>
+      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f9f9;</div><div class="gc-title">Deliver clean, trustworthy data</div><div class="gc-desc">Validate schemas, block PII, transform events</div></div>
+      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f6e1;&#xfe0f;</div><div class="gc-title">Ensure regulatory compliance</div><div class="gc-desc">GDPR, CCPA, HIPAA, consent management</div></div>
+      <div class="goal-card selected" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f465;</div><div class="gc-title">Unify customer identity</div><div class="gc-desc">Resolve identities into a single customer view</div></div>
+      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f504;</div><div class="gc-title">Sync warehouse data to tools</div><div class="gc-desc">Activate modeled data via Reverse ETL</div></div>
+      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f3db;&#xfe0f;</div><div class="gc-title">Build a warehouse-native CDP</div><div class="gc-desc">Centralize all customer data with full control</div></div>
+    </div>
+    <div class="cta-row"><button class="btn btn-pill btn-outline">Back</button><button class="btn btn-pill btn-blue" style="min-width:180px;">Finish setup</button></div>
+  </div>
+  <div class="split-art">
+    <div class="geo-art"><div class="geo-block gb-1"></div><div class="geo-block gb-2"></div><div class="geo-block gb-3"></div><div class="geo-block gb-4"></div><div class="geo-block gb-5"></div><div class="geo-block gb-6"></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ QUICK START ============ -->
+<div id="qs" class="screen">
+<div class="qs-layout">
+  <div class="qs-sidebar">
+    <div class="qs-sidebar-icon" style="color:var(--rs-blue);">&#x26a1;</div>
+    <div class="qs-sidebar-icon">&#x1f4c1;</div>
+    <div class="qs-sidebar-icon">&#x1f517;</div>
+    <div class="qs-sidebar-icon">&#x2699;&#xfe0f;</div>
+  </div>
+  <div class="qs-panel">
+    <div class="qs-hdr">
+      <div class="qs-hdr-left"><span>&#x26a1;</span><span class="qs-hdr-title">Getting started</span><span class="qs-hdr-count">2/11</span></div>
+      <button class="qs-close">&times;</button>
+    </div>
+    <div class="qs-sec">
+      <div class="qs-sec-hdr">DATA COLLECTION <span>2/6</span></div>
+      <div class="qs-sub-hdr">Data Source &mdash; 2/4</div>
+      <div class="qs-row"><div class="qs-dot done">&#x2713;</div><div class="qs-title">Connect an Event Stream source</div><span class="qs-arrow">&#x203a;</span></div>
+      <div class="qs-row"><div class="qs-dot done">&#x2713;</div><div class="qs-title">Send your first page call</div><span class="qs-arrow">&#x203a;</span></div>
+      <div class="qs-row"><div class="qs-dot curr">3</div><div class="qs-title">Send your first identify call</div><span class="qs-arrow">&#x2039;</span></div>
+      <div class="qs-exp">
+        Identify calls tie events to individual users.<br>
+        <div class="code" style="margin-top:8px;font-size:12px;"><button class="cp">Copy</button>rudder.identify(<span class="cs">'user_123'</span>, {<br>&nbsp;&nbsp;email: <span class="cs">'user@example.com'</span>,<br>&nbsp;&nbsp;name: <span class="cs">'Ada Lovelace'</span><br>});</div>
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button class="btn btn-pill-sm btn-blue">View Live Events &rarr;</button>
+          <button class="btn btn-ghost" style="font-size:13px;">Docs &#x2197;</button>
+        </div>
+      </div>
+      <div class="qs-row"><div class="qs-dot pend"></div><div class="qs-title">Send your first track call</div><span class="qs-arrow">&#x203a;</span></div>
+      <div class="tm-banner"><h4>&#x1f4ca; Add pixels & scripts via Tag Manager</h4><p>Use RudderStack Tag Manager to add CRM, analytics, marketing, or ad pixels.</p><div style="display:flex;gap:8px;"><button class="btn btn-pill-sm btn-blue">Set up Tag Manager</button><button class="btn btn-ghost" style="font-size:12px;">Learn more</button></div></div>
+      <div class="qs-sub-hdr">Data Destination &mdash; 0/2</div>
+      <div class="qs-row"><div class="qs-dot pend"></div><div class="qs-title">Connect a warehouse destination</div><span class="qs-arrow">&#x203a;</span></div>
+      <div class="qs-row"><div class="qs-dot pend"></div><div class="qs-title">Create a transformation</div><span class="qs-arrow">&#x203a;</span></div>
+    </div>
+    <div class="qs-sec">
+      <div class="qs-sec-hdr">DATA GOVERNANCE <span>0/2</span></div>
+      <div class="qs-row"><div class="qs-dot pend"></div><div class="qs-title">Explore your data catalog</div><span class="qs-arrow">&#x203a;</span></div>
+      <div class="qs-row"><div class="qs-dot pend"></div><div class="qs-title">Create a tracking plan</div><span class="qs-arrow">&#x203a;</span></div>
+    </div>
+    <div class="qs-sec">
+      <div class="qs-sec-hdr locked">DATA ACTIVATION &#x1f512; <span>0/1</span></div>
+      <div class="qs-row"><div class="qs-dot lock">&#x1f512;</div><div class="qs-title lock">Sync warehouse data via Reverse ETL</div><span class="qs-arrow">&#x203a;</span></div>
+      <div class="qs-row"><div class="qs-dot grey"></div><div class="qs-title grey">Enable Profiles</div><span class="qs-badge" style="margin-left:auto;margin-right:6px;">ENTERPRISE</span><span class="qs-arrow">&#x203a;</span></div>
+      <div class="qs-row"><div class="qs-dot grey"></div><div class="qs-title grey">Create your first Audience</div><span class="qs-badge" style="margin-left:auto;margin-right:6px;">ENTERPRISE</span><span class="qs-arrow">&#x203a;</span></div>
+    </div>
+    <div class="qs-sec">
+      <div class="qs-sec-hdr">YOUR PLAN</div>
+      <div class="qs-row"><div class="qs-dot pend"></div><div class="qs-title">Choose your plan</div><span class="qs-arrow">&#x2039;</span></div>
+      <div class="qs-exp">Don't lose Growth features after your 30-day trial. Upgrade now and enjoy the first 30 days free.<div style="display:flex;gap:8px;margin-top:10px;"><button class="btn btn-pill-sm btn-blue">View plans &amp; upgrade</button><button class="btn btn-ghost" style="font-size:12px;">Remind me later</button></div></div>
+    </div>
+    <div class="qs-sec" style="border-bottom:none;">
+      <div class="qs-sec-hdr">YOUR TEAM</div>
+      <div class="qs-row"><div class="qs-dot pend"></div><div class="qs-title">Invite your team</div><span class="qs-arrow">&#x2039;</span></div>
+      <div class="qs-exp">RudderStack works best when your whole team has access.<div style="display:flex;gap:8px;margin-top:10px;"><button class="btn btn-pill-sm btn-blue">Invite teammates</button><button class="btn btn-ghost" style="font-size:12px;">It's just me!</button></div></div>
+    </div>
+  </div>
+  <div class="qs-main"><div class="qs-main-ph"><p style="font-size:40px;margin-bottom:12px;">&#x1f3e0;</p><p style="color:var(--rs-grey-400);">RudderStack app content</p></div></div>
+</div>
+</div>
+
+<!-- ============ INSTALL (Phase 2 preview) ============ -->
+<div id="i1" class="screen">
+<div class="centered">
+  <div class="breadcrumb">
+    <span class="bc-item active">Install</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Configure</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Source Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Warehouse Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Destination Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Plans</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Invite Teammates</span>
+  </div>
+  <h2 style="margin-bottom:4px;">Install</h2>
+  <div style="display:flex;gap:0;border-bottom:1px solid var(--rs-grey-100);margin:16px 0 24px;">
+    <span style="padding:8px 16px;font-size:13px;color:var(--rs-grey-400);cursor:pointer;">Automatic setup</span>
+    <span style="padding:8px 16px;font-size:13px;color:var(--rs-blue);font-weight:500;border-bottom:2px solid var(--rs-blue);margin-bottom:-1px;cursor:pointer;">Manual setup</span>
+  </div>
+  <h3>Install RudderStack manually</h3>
+  <p style="color:var(--rs-grey-600);margin-bottom:20px;">Choose your SDK to get started.</p>
+  <div class="sdk-chips">
+    <span class="sdk-chip" onclick="sdkSel(this)"><span class="sdk-icon" style="background:#000;color:#fff;border-radius:50%;width:24px;height:24px;font-size:10px;">iOS</span> iOS (Swift)</span>
+    <span class="sdk-chip" onclick="sdkSel(this)"><span class="sdk-icon">&#x1f40d;</span> Python</span>
+    <span class="sdk-chip selected" onclick="sdkSel(this)"><span class="sdk-icon" style="background:#F7DF1E;border-radius:50%;width:24px;height:24px;font-size:9px;font-weight:700;color:#000;">JS</span> Javascript</span>
+    <span class="sdk-chip" onclick="sdkSel(this)"><span class="sdk-icon">&#x1f916;</span> Android (Kotlin)</span>
+    <span class="sdk-chip" onclick="sdkSel(this)"><span class="sdk-icon" style="background:#000;color:#fff;border-radius:50%;width:24px;height:24px;font-size:10px;">iOS</span> iOS (Swift)</span>
+    <span class="sdk-chip" onclick="sdkSel(this)"><span class="sdk-icon" style="background:#339933;border-radius:50%;width:24px;height:24px;font-size:9px;font-weight:700;color:#fff;">N</span> Node</span>
+  </div>
+  <div class="cta-row-end"><button class="btn btn-pill btn-blue">Next</button></div>
+  <p style="margin-top:32px;padding:16px;background:#FEF3CD;border-radius:8px;font-size:13px;color:#856404;">&#x26a0;&#xfe0f; This is a <strong>Phase 2</strong> preview. The Install Experience ships after the MVP (Signup + Setup + Quick Start).</p>
+</div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+  document.querySelectorAll('.v2-nav a').forEach(a => a.classList.remove('active'));
+  if(event && event.target) event.target.classList.add('active');
+}
+function sdkSel(el) {
+  el.parentElement.querySelectorAll('.sdk-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function chipSelect(el) {
+  el.parentElement.querySelectorAll('.sdk-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+document.addEventListener('DOMContentLoaded', () => { document.getElementById('s1a').style.display = 'block'; });
+</script>
+</body>
+</html>
