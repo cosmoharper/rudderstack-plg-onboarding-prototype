@@ -265,8 +265,12 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
   <a href="#" onclick="show('s2c')">Goals</a>
   <span class="nl">App</span>
   <a href="#" onclick="show('qs')">Quick Start</a>
-  <span class="nl" style="opacity:.4">Phase 2</span>
-  <a href="#" onclick="show('i1')" style="opacity:.4">Install</a>
+  <span class="nl" style="opacity:.6">Install (Phase 2)</span>
+  <a href="#" onclick="show('i1')">SDK</a>
+  <a href="#" onclick="show('i2')">Configure</a>
+  <a href="#" onclick="show('i3')">Warehouse</a>
+  <a href="#" onclick="show('i4')">Plans</a>
+  <a href="#" onclick="show('i5')">Invite</a>
 </nav>
 
 <!-- ============ SCREEN 1a: EMAIL ============ -->
@@ -551,6 +555,176 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
   </div>
   <div class="cta-row-end"><button class="btn btn-pill btn-blue">Next</button></div>
   <p style="margin-top:32px;padding:16px;background:#FEF3CD;border-radius:8px;font-size:13px;color:#856404;">&#x26a0;&#xfe0f; This is a <strong>Phase 2</strong> preview. The Install Experience ships after the MVP (Signup + Setup + Quick Start).</p>
+</div>
+</div>
+
+<!-- ============ INSTALL 2: CONFIGURE ============ -->
+<div id="i2" class="screen">
+<div class="centered">
+  <div class="breadcrumb">
+    <span class="bc-item complete">Install</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item active">Configure</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Source Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Warehouse Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Plans</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Invite Teammates</span>
+  </div>
+  <h2 style="margin-bottom:24px;">Configure</h2>
+  <h3>Enable autoTrack</h3>
+  <p style="color:var(--rs-grey-600);margin-bottom:16px;">Automatically capture user behavior without writing code.</p>
+  <div class="tg-row"><div class="tg"></div><div><div class="tg-text">Page views</div><div class="tg-sub">Automatically track every page a user visits</div></div></div>
+  <div class="tg-row"><div class="tg"></div><div><div class="tg-text">Click events</div><div class="tg-sub">Track button, link, and form clicks</div></div></div>
+  <div class="tg-row"><div class="tg"></div><div><div class="tg-text">Form submissions</div><div class="tg-sub">Capture form fills as identify calls</div></div></div>
+  <div class="tg-row"><div class="tg off"></div><div><div class="tg-text">Session replay <span class="qs-badge" style="margin-left:4px;">GROWTH TRIAL</span></div><div class="tg-sub">Record user sessions for debugging</div></div></div>
+  <div style="border-top:1px solid var(--rs-grey-100);margin:24px 0;padding-top:24px;">
+    <h3>Environment</h3>
+    <div style="display:flex;gap:12px;margin-top:12px;">
+      <label class="region-card selected"><input type="radio" name="env2" checked> Development</label>
+      <label class="region-card"><input type="radio" name="env2"> Production</label>
+    </div>
+  </div>
+  <div class="cta-row"><button class="btn btn-pill btn-outline">Back</button><button class="btn btn-pill btn-blue">Next</button></div>
+  <p style="margin-top:32px;padding:16px;background:#FEF3CD;border-radius:8px;font-size:13px;color:#856404;">&#x26a0;&#xfe0f; <strong>Phase 2</strong> preview.</p>
+</div>
+</div>
+
+<!-- ============ INSTALL 3: WAREHOUSE ============ -->
+<div id="i3" class="screen">
+<div class="centered">
+  <div class="breadcrumb">
+    <span class="bc-item complete">Install</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item complete">Configure</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Source Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item active">Warehouse Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Plans</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Invite Teammates</span>
+  </div>
+  <h2 style="margin-bottom:4px;">Warehouse Setup</h2>
+  <h3 style="margin-top:24px;">Popular destinations</h3>
+  <p style="color:var(--rs-grey-600);margin-bottom:16px;">Some of our most popular destinations to help you get started.</p>
+  <div class="dest-grid">
+    <div class="dest-card" onclick="this.classList.toggle('selected')"><div class="dest-icon">&#x1f4e6;</div><div class="dest-name">Amazon S3</div></div>
+    <div class="dest-card" onclick="this.classList.toggle('selected')"><div class="dest-icon" style="color:#7C3AED;">&#x1f4ca;</div><div class="dest-name">Amplitude</div></div>
+    <div class="dest-card selected" onclick="this.classList.toggle('selected')"><div class="dest-icon" style="color:#4285F4;">&#x1f4ca;</div><div class="dest-name">BigQuery</div></div>
+    <div class="dest-card" onclick="this.classList.toggle('selected')"><div class="dest-icon" style="color:#FF7A59;">&#x1f4e8;</div><div class="dest-name">HubSpot</div></div>
+    <div class="dest-card" onclick="this.classList.toggle('selected')"><div class="dest-icon" style="color:#7B68EE;">&#x25cf;</div><div class="dest-name">Mixpanel</div></div>
+    <div class="dest-card" onclick="this.classList.toggle('selected')"><div class="dest-icon" style="color:#336791;">&#x1f418;</div><div class="dest-name">Postgres</div></div>
+    <div class="dest-card" onclick="this.classList.toggle('selected')"><div class="dest-icon" style="color:#E03E2D;">&#x1f534;</div><div class="dest-name">Redshift</div></div>
+    <div class="dest-card" onclick="this.classList.toggle('selected')"><div class="dest-icon" style="color:#29B5E8;">&#x2744;&#xfe0f;</div><div class="dest-name">Snowflake</div></div>
+    <div class="dest-card" onclick="this.classList.toggle('selected')"><div class="dest-icon">&#x1f517;</div><div class="dest-name">Webhook</div></div>
+  </div>
+  <div class="cta-row"><button class="btn btn-pill btn-outline">Back</button><button class="btn btn-pill btn-blue">Next</button></div>
+  <p style="margin-top:32px;padding:16px;background:#FEF3CD;border-radius:8px;font-size:13px;color:#856404;">&#x26a0;&#xfe0f; <strong>Phase 2</strong> preview.</p>
+</div>
+</div>
+
+<!-- ============ INSTALL 4: PLANS ============ -->
+<div id="i4" class="screen">
+<div class="centered">
+  <div class="breadcrumb">
+    <span class="bc-item complete">Install</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item complete">Configure</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item complete">Source Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item complete">Warehouse Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item active">Plans</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item">Invite Teammates</span>
+  </div>
+  <h2 style="margin-bottom:24px;">Plans</h2>
+  <div class="plan-grid">
+    <div class="plan-card">
+      <div class="plan-tag">Free</div>
+      <div class="plan-name">Free</div>
+      <div class="plan-price">$0</div>
+      <div class="plan-price-note">/ month</div>
+      <div class="plan-desc">Best for startups and small teams who need to stream event data.</div>
+      <div style="font-size:11px;font-weight:600;color:var(--rs-grey-800);margin-bottom:8px;">Key features</div>
+      <ul class="plan-features">
+        <li>1M events/mo</li>
+        <li>50+ sources</li>
+        <li>Warehouse destinations</li>
+        <li>Reverse ETL</li>
+      </ul>
+    </div>
+    <div class="plan-card recommended" style="border-top:3px solid var(--rs-blue);">
+      <div class="plan-tag" style="color:var(--rs-blue);">Starter &middot; Save with annual billing</div>
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">$220</div>
+      <div class="plan-price-note">/ month</div>
+      <div class="plan-desc">Best for teams with increasing event volume and advanced integration needs.</div>
+      <button class="btn btn-pill btn-blue btn-full" style="margin:12px 0;">Upgrade plan</button>
+      <div style="font-size:11px;font-weight:600;color:var(--rs-grey-800);margin-bottom:8px;">Everything in Free, plus</div>
+      <ul class="plan-features">
+        <li>Unlimited sources</li>
+        <li>Email support</li>
+        <li>All options &amp; IaC</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-tag">Growth</div>
+      <div class="plan-name">Growth</div>
+      <div class="plan-price">Custom</div>
+      <div class="plan-price-note">Contact sales</div>
+      <div class="plan-desc">Best for high-performance teams building end-to-end use cases on their warehouse.</div>
+      <button class="btn btn-pill btn-outline btn-full" style="margin:12px 0;">Contact sales</button>
+      <div style="font-size:11px;font-weight:600;color:var(--rs-grey-800);margin-bottom:8px;">Everything in Starter, plus</div>
+      <ul class="plan-features">
+        <li>Unlimited connections</li>
+        <li>Reverse ETL connections</li>
+        <li>Dedicated support</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-tag">Enterprise</div>
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">Custom</div>
+      <div class="plan-price-note">Contact sales</div>
+      <div class="plan-desc">Best for large data teams who want state-of-the-art security and white-glove support.</div>
+      <button class="btn btn-pill btn-outline btn-full" style="margin:12px 0;">Contact sales</button>
+      <div style="font-size:11px;font-weight:600;color:var(--rs-grey-800);margin-bottom:8px;">Everything in Growth, plus</div>
+      <ul class="plan-features">
+        <li>Profiles &amp; Audiences</li>
+        <li>SSO &amp; SAML</li>
+        <li>24/7 SLA support</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cta-row-end"><button class="btn btn-pill btn-blue">Next</button></div>
+  <p style="margin-top:32px;padding:16px;background:#FEF3CD;border-radius:8px;font-size:13px;color:#856404;">&#x26a0;&#xfe0f; <strong>Phase 2</strong> preview.</p>
+</div>
+</div>
+
+<!-- ============ INSTALL 5: INVITE ============ -->
+<div id="i5" class="screen">
+<div class="centered">
+  <div class="breadcrumb">
+    <span class="bc-item complete">Install</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item complete">Configure</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item complete">Source Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item complete">Warehouse Setup</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item complete">Plans</span><span class="bc-sep">&rsaquo;</span>
+    <span class="bc-item active">Invite Teammates</span>
+  </div>
+  <h2 style="margin-bottom:4px;">Invite Teammates</h2>
+  <p style="color:var(--rs-grey-600);margin-bottom:24px;">RudderStack works best when your whole team has access.</p>
+  <div class="inv-row">
+    <div class="fg"><label>Teammate 1</label><input class="fi" placeholder="teammate@company.com"></div>
+    <div class="inv-roles"><span class="inv-role sel">Admin</span><span class="inv-role">Member</span><span class="inv-role">Read-only</span></div>
+  </div>
+  <div class="inv-row">
+    <div class="fg"><label>Teammate 2</label><input class="fi" placeholder="colleague@company.com"></div>
+    <div class="inv-roles"><span class="inv-role">Admin</span><span class="inv-role sel">Member</span><span class="inv-role">Read-only</span></div>
+  </div>
+  <div class="inv-row">
+    <div class="fg"><label>Teammate 3</label><input class="fi" placeholder="another@company.com"></div>
+    <div class="inv-roles"><span class="inv-role">Admin</span><span class="inv-role sel">Member</span><span class="inv-role">Read-only</span></div>
+  </div>
+  <button class="btn btn-ghost" style="margin-bottom:24px;">+ Add another</button>
+  <div style="border:1px solid var(--rs-grey-100);border-radius:var(--rs-radius-md);padding:16px;">
+    <label style="font-size:13px;color:var(--rs-grey-400);display:block;margin-bottom:8px;">Add a personal message (optional)</label>
+    <textarea class="fi" style="height:60px;padding:8px 12px;resize:vertical;" placeholder="Let's get our customer data in one place."></textarea>
+  </div>
+  <div class="cta-row"><button class="btn btn-pill btn-outline">Back</button><div style="display:flex;gap:12px;"><button class="btn btn-ghost">Skip for now</button><button class="btn btn-pill btn-blue">Send &amp; finish</button></div></div>
+  <p style="margin-top:32px;padding:16px;background:#FEF3CD;border-radius:8px;font-size:13px;color:#856404;">&#x26a0;&#xfe0f; <strong>Phase 2</strong> preview.</p>
 </div>
 </div>
 
