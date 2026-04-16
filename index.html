@@ -851,48 +851,74 @@ body {
      ============================================ -->
 <nav class="screen-nav">
   <span class="nav-label">Signup</span>
-  <a href="#signup" onclick="showScreen('signup')">Signup</a>
+  <a href="#signup-email" onclick="showScreen('signup-email')">Email / OAuth</a>
+  <a href="#signup-profile" onclick="showScreen('signup-profile')">Profile + Region</a>
   <span class="nav-label">Setup</span>
   <a href="#setup-a" onclick="showScreen('setup-a')">About You</a>
   <a href="#setup-b" onclick="showScreen('setup-b')">Tech Stack</a>
   <a href="#setup-c" onclick="showScreen('setup-c')">Goals</a>
-  <span class="nav-label">Install</span>
-  <a href="#install-1" onclick="showScreen('install-1')">SDK</a>
-  <a href="#install-2" onclick="showScreen('install-2')">Configure</a>
-  <a href="#install-3" onclick="showScreen('install-3')">Warehouse</a>
-  <a href="#install-4" onclick="showScreen('install-4')">Plan</a>
-  <a href="#install-5" onclick="showScreen('install-5')">Invite</a>
   <span class="nav-label">App</span>
   <a href="#quickstart" onclick="showScreen('quickstart')">Quick Start</a>
+  <span class="nav-label" style="opacity: 0.4;">Phase 2</span>
+  <a href="#install-1" onclick="showScreen('install-1')" style="opacity: 0.4;">Install (P2)</a>
 </nav>
 
 <!-- ============================================
      SCREEN 1: SIGNUP
      ============================================ -->
-<div id="signup" class="screen">
+<!-- ---- SCREEN 1a: EMAIL / OAUTH ---- -->
+<div id="signup-email" class="screen">
   <div class="auth-layout">
-    <div class="auth-container">
+    <div class="auth-container" style="max-width: 480px;">
       <div class="auth-header">
         <div class="auth-logo">
           <svg viewBox="0 0 32 32" fill="none" width="32" height="32"><path d="M0 0h32v32H0z" fill="none"/><path d="M0 0C0 17.67 14.33 32 32 32V0H0z" fill="#105ED5"/></svg>
           <span>rudderstack</span>
         </div>
-        <h1 class="auth-title">Start your free RudderStack account</h1>
-        <p class="auth-subtitle">30-day free trial of all Growth-tier features</p>
+        <h1 class="auth-title">Sign up</h1>
+        <p class="auth-subtitle">Create a free account</p>
       </div>
       <div class="auth-card">
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" class="input-field" placeholder="name@workemail.com">
+        </div>
+        <button class="btn btn-secondary btn-lg btn-full" style="margin-bottom: var(--rs-space-md);">Sign up</button>
+        <div class="divider">OR</div>
         <button class="btn btn-google">
           <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
-          Continue with Google
+          Sign up with Google
         </button>
-        <div class="divider">or sign up with email</div>
+        <div style="text-align: center; margin-top: var(--rs-space-lg); font-size: var(--rs-font-size-sm); color: var(--rs-grey-500);">
+          Already have an account? <a href="#" style="color: var(--rs-blue-500); text-decoration: none;">Login</a>
+        </div>
+        <div style="text-align: center; margin-top: var(--rs-space-sm);">
+          <a href="#" style="color: var(--rs-blue-500); text-decoration: none; font-size: var(--rs-font-size-sm);">Looking to use RudderStack Open Source? &rarr;</a>
+        </div>
+        <p style="text-align: center; margin-top: var(--rs-space-lg); font-size: var(--rs-font-size-xs); color: var(--rs-grey-400);">
+          By signing up, I agree to RudderStack's <a href="#" style="color: var(--rs-grey-500);">Privacy Policy</a> and <a href="#" style="color: var(--rs-grey-500);">Terms of Service</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---- SCREEN 1b: PROFILE + REGION ---- -->
+<div id="signup-profile" class="screen">
+  <div class="auth-layout">
+    <div class="auth-container" style="max-width: 520px;">
+      <div class="auth-header">
+        <div class="auth-logo">
+          <svg viewBox="0 0 32 32" fill="none" width="32" height="32"><path d="M0 0h32v32H0z" fill="none"/><path d="M0 0C0 17.67 14.33 32 32 32V0H0z" fill="#105ED5"/></svg>
+          <span>rudderstack</span>
+        </div>
+        <h1 class="auth-title">Complete your account</h1>
+        <p class="auth-subtitle">We just sent a verification link to <strong>jane@company.com</strong></p>
+      </div>
+      <div class="auth-card">
         <div class="input-group">
           <label>Your name <span class="required">*</span></label>
           <input type="text" class="input-field" placeholder="Jane Doe">
-        </div>
-        <div class="input-group">
-          <label>Work email <span class="required">*</span></label>
-          <input type="email" class="input-field" placeholder="jane@company.com">
         </div>
         <div class="input-group">
           <label>Organization name <span class="required">*</span></label>
@@ -911,6 +937,25 @@ body {
           </select>
         </div>
         <div class="input-group">
+          <label>Password <span class="required">*</span></label>
+          <input type="password" class="input-field" placeholder="Min 8 characters">
+          <p style="font-size: 11px; color: var(--rs-grey-400); margin-top: 4px;">Must include uppercase, lowercase, number, and special character</p>
+        </div>
+        <div class="input-group">
+          <label>Where should your workspace run? <span class="required">*</span></label>
+          <div class="radio-group" style="flex-direction: row; gap: var(--rs-space-sm);">
+            <label class="radio-option selected" style="flex: 1;">
+              <input type="radio" name="region-signup" checked>
+              <div class="option-title">&#x1f1fa;&#x1f1f8; United States</div>
+            </label>
+            <label class="radio-option" style="flex: 1;">
+              <input type="radio" name="region-signup">
+              <div class="option-title">&#x1f1ea;&#x1f1fa; European Union</div>
+            </label>
+          </div>
+          <p style="font-size: 12px; color: var(--rs-grey-400); margin-top: 4px;">Data residency can't be changed later.</p>
+        </div>
+        <div class="input-group">
           <label>Where did you hear about us? <span style="color: var(--rs-grey-400)">(optional)</span></label>
           <select class="input-field select-field">
             <option value="" disabled selected>Select one...</option>
@@ -923,15 +968,10 @@ body {
             <option>Other</option>
           </select>
         </div>
-        <label style="display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--rs-grey-600); margin-bottom: var(--rs-space-md);">
-          <input type="checkbox" style="margin-top: 3px; accent-color: var(--rs-blue-500);">
-          I agree to the <a href="#" style="color: var(--rs-blue-500);">Terms of Service</a> and <a href="#" style="color: var(--rs-blue-500);">Privacy Policy</a>
-        </label>
         <button class="btn btn-primary btn-lg btn-full">Create account</button>
       </div>
       <div class="auth-footer">
-        Trusted by 10,000+ data teams &mdash; no credit card required<br>
-        Already have an account? <a href="#">Login</a>
+        30-day free trial of all Growth-tier features &mdash; no credit card required
       </div>
     </div>
   </div>
@@ -1050,20 +1090,6 @@ body {
         <p class="auth-subtitle">We'll recommend the right sources and destinations.</p>
       </div>
       <div class="auth-card">
-        <div class="input-group">
-          <label>Where should your workspace run? <span class="required">*</span></label>
-          <div class="radio-group" style="flex-direction: row; gap: var(--rs-space-sm);">
-            <label class="radio-option selected" style="flex: 1;">
-              <input type="radio" name="region" checked>
-              <div class="option-title">&#x1f1fa;&#x1f1f8; United States</div>
-            </label>
-            <label class="radio-option" style="flex: 1;">
-              <input type="radio" name="region">
-              <div class="option-title">&#x1f1ea;&#x1f1fa; European Union</div>
-            </label>
-          </div>
-          <p style="font-size: 12px; color: var(--rs-grey-400); margin-top: 4px;">Data residency can't be changed later.</p>
-        </div>
         <div class="input-group">
           <label>Are you migrating from another tool?</label>
           <div class="radio-group">
@@ -1783,7 +1809,7 @@ function showScreen(id) {
 document.addEventListener('DOMContentLoaded', () => {
   const hash = window.location.hash.slice(1);
   if (hash) showScreen(hash);
-  else document.getElementById('signup').style.display = 'block';
+  else document.getElementById('signup-email').style.display = 'block';
 });
 // Handle hash changes
 window.addEventListener('hashchange', () => {
