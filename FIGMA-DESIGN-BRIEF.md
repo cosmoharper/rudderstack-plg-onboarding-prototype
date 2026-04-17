@@ -93,7 +93,7 @@ All components from **RudderStack Design System 1.0** Figma library. Component n
 
 ### Screen 10: In-App Quick Start
 - **Layout:** 480px drawer panel on left of app, main content visible behind
-- **Header:** Sticky, "Getting started" with lightning bolt + "2/13 complete" counter + close X
+- **Header:** Sticky, "Getting started" with lightning bolt + "2/11 complete" counter + close X
 - **Sections:** DATA COLLECTION (with Data Source / Data Destination subheaders), DATA GOVERNANCE, DATA ACTIVATION, YOUR PLAN, YOUR TEAM
 - **Section headers:** Uppercase, 12px, 600 weight, grey-500, counter on right
 - **Subsection headers:** 11px, 500 weight, grey-400, dashed bottom border
