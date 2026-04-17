@@ -33,7 +33,7 @@ All components from **RudderStack Design System 1.0** Figma library. Component n
 | Persona type (Screen A) | `radio button` | Styled as cards with icon + title + description |
 | Setup preferences (Screen A) | Checkbox variant | Styled as selectable cards |
 | Language selection (Screen A) | Checkbox variant | Horizontal chip layout |
-| Region (Screen B) | `radio button` | Two-column card layout |
+| Region (Signup Screen 1b) | `radio button` | Two-column card layout — moved from Setup Screen B to signup per 2026-04-16 decision |
 | Migration source (Screen B) | `radio button` | Vertical list, compact |
 | Warehouse picker (Screen B, Install step 3) | Chip/tag component | With emoji/icon prefix, selectable |
 | Event volume (Screen B) | `radio button` | Horizontal wrap layout |
@@ -73,13 +73,14 @@ All components from **RudderStack Design System 1.0** Figma library. Component n
 - **Subhead:** "30-day free trial of all Growth-tier features" (14px, grey-500)
 - **Google button:** Full-width, white bg, grey border, Google logo left-aligned
 - **Divider:** "or sign up with email" with horizontal rules
-- **Form:** 4 required fields + 1 optional + TOS checkbox + CTA
+- **Screen 1a:** Email field + Sign up + OR + Google OAuth (matches current prod)
+- **Screen 1b:** Name, Org, Role, Password, Region (US/EU), optional attribution + Create account CTA
 - **Footer:** "Trusted by 10,000+ data teams" + "Already have an account? Login"
 
 ### Screens 2-4: Setup Your Workspace
 - **Shared:** Progress bar at top (33/66/100%), step counter, "Skip" link top-right
 - **Screen A:** 3 question blocks — persona (radio cards), setup prefs (checkbox cards), languages (horizontal chips)
-- **Screen B:** 5 question blocks — region (2-col radio), migration (compact list), warehouse (chips), tools (searchable), volume (horizontal radio)
+- **Screen B:** 4 question blocks — migration (compact list), warehouse (chips), tools (searchable), volume (horizontal radio). Region removed (now at Signup Screen 1b).
 - **Screen C:** 2x3 grid of visual goal cards — each has emoji icon (28px), title (14px bold), description (13px grey), checkbox in top-right corner. Selected state: blue border + blue-50 background
 
 ### Screens 5-9: Install Experience
@@ -92,7 +93,7 @@ All components from **RudderStack Design System 1.0** Figma library. Component n
 
 ### Screen 10: In-App Quick Start
 - **Layout:** 480px drawer panel on left of app, main content visible behind
-- **Header:** Sticky, "Getting started" with lightning bolt + "2/11 complete" counter + close X
+- **Header:** Sticky, "Getting started" with lightning bolt + "2/13 complete" counter + close X
 - **Sections:** DATA COLLECTION (with Data Source / Data Destination subheaders), DATA GOVERNANCE, DATA ACTIVATION, YOUR PLAN, YOUR TEAM
 - **Section headers:** Uppercase, 12px, 600 weight, grey-500, counter on right
 - **Subsection headers:** 11px, 500 weight, grey-400, dashed bottom border

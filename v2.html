@@ -205,6 +205,14 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
 .qs-title.grey { color: var(--rs-grey-200); font-style: italic; }
 .qs-arrow { color: var(--rs-grey-200); font-size: 12px; }
 .qs-badge { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .3px; padding: 2px 6px; border-radius: 3px; background: #F3E8FF; color: #7C3AED; }
+.qs-badge-beta { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .3px; padding: 2px 6px; border-radius: 3px; background: #FEF3C7; color: #92400E; }
+.retl-uc-grid { display: grid; grid-template-columns: 1fr; gap: 6px; margin: 10px 0; }
+.retl-uc-card { display: flex; gap: 8px; padding: 8px 10px; border: 1px solid var(--rs-grey-100); border-radius: 6px; background: white; align-items: flex-start; }
+.retl-uc-icon { font-size: 16px; flex-shrink: 0; }
+.retl-uc-body { flex: 1; }
+.retl-uc-title { font-size: 11px; font-weight: 600; color: var(--rs-grey-900); display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+.retl-uc-desc { font-size: 11px; color: var(--rs-grey-600); line-height: 1.4; }
+.retl-eng-note { font-size: 11px; color: var(--rs-grey-600); margin: 8px 0; padding: 8px; background: var(--rs-grey-50); border-radius: 6px; }
 .qs-exp { background: var(--rs-grey-50); border: 1px solid var(--rs-grey-100); border-radius: var(--rs-radius-md); padding: 14px; margin: 6px 0 10px; font-size: 13px; color: var(--rs-grey-600); line-height: 1.5; }
 .qs-exp .btn { margin-top: 10px; }
 .qs-main { flex: 1; background: var(--rs-grey-50); display: flex; align-items: center; justify-content: center; }
@@ -352,17 +360,17 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
     <div class="fg">
       <label>Which best describes what you do?</label>
       <div class="rg">
-        <label class="ro"><input type="radio" name="p2"> Technical IC / Individual</label>
+        <label class="ro"><input type="radio" name="p2"> Technical user</label>
         <label class="ro"><input type="radio" name="p2"> Business User</label>
         <label class="ro"><input type="radio" name="p2"> Leadership</label>
       </div>
     </div>
     <div class="fg">
-      <label>What's your preference?</label>
+      <label>How do you prefer to work with RudderStack?</label>
       <div class="rg">
-        <label class="ro"><input type="radio" name="pref2"> Command line (CLI, SDKs, IaC)</label>
-        <label class="ro"><input type="radio" name="pref2"> Visual UI (point-and-click)</label>
-        <label class="ro"><input type="radio" name="pref2"> API / programmatic</label>
+        <label class="ro"><input type="radio" name="pref2"> Visual UI configuration</label>
+        <label class="ro"><input type="radio" name="pref2" checked> Code-based configuration (CLI, SDKs, IaC)</label>
+        <label class="ro"><input type="radio" name="pref2"> Agentic / AI-assisted (MCP, Claude, Cursor)</label>
       </div>
     </div>
     <div class="fg">
@@ -406,7 +414,7 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
         <label class="ro"><input type="radio" name="mig2"> Snowplow</label>
         <label class="ro"><input type="radio" name="mig2"> Hightouch</label>
         <label class="ro"><input type="radio" name="mig2"> Other</label>
-        <label class="ro"><input type="radio" name="mig2" checked> Not migrating &mdash; here to build a warehouse-native CDP</label>
+        <label class="ro"><input type="radio" name="mig2" checked> Not migrating &mdash; this is my first CDP</label>
       </div>
     </div>
     <div class="fg">
@@ -422,7 +430,7 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
     </div>
     <div class="fg">
       <label>What other tools does your team use? <span class="opt">(optional)</span></label>
-      <input class="fi" placeholder="&#x1f50d; Search tools... e.g. Amplitude, Slack, dbt">
+      <input class="fi" placeholder="&#x1f50d; Search tools... e.g. Google Ads, Amplitude, Braze">
     </div>
     <div class="fg">
       <label>Expected event volume per month</label>
@@ -451,14 +459,14 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
       <span style="display:inline-flex;align-items:center;gap:12px;"><svg viewBox="0 0 40 40" width="40" height="40"><path d="M0 0C0 22.09 17.91 40 40 40V0H0z" fill="#105ED5"/></svg><span style="font-family:'Inter',system-ui,sans-serif;font-size:28px;font-weight:500;color:#105ED5;letter-spacing:-0.5px;">rudderstack</span></span>
     </div>
     <h1>What do you want to do with RudderStack?</h1>
-    <p class="subtitle">Pick all that apply. We'll personalize your setup.</p>
+    <p class="subtitle">Pick all that apply.</p>
     <div class="goal-grid">
       <div class="goal-card selected" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f4e1;</div><div class="gc-title">Collect & route event data</div><div class="gc-desc">Simplify first-party data collection across web, mobile, & server</div></div>
-      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f9f9;</div><div class="gc-title">Deliver clean, trustworthy data</div><div class="gc-desc">Validate schemas, block PII, transform events</div></div>
-      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f6e1;&#xfe0f;</div><div class="gc-title">Ensure regulatory compliance</div><div class="gc-desc">GDPR, CCPA, HIPAA, consent management</div></div>
-      <div class="goal-card selected" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f465;</div><div class="gc-title">Unify customer identity</div><div class="gc-desc">Resolve identities into a single customer view</div></div>
-      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f504;</div><div class="gc-title">Sync warehouse data to tools</div><div class="gc-desc">Activate modeled data via Reverse ETL</div></div>
-      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f3db;&#xfe0f;</div><div class="gc-title">Build a warehouse-native CDP</div><div class="gc-desc">Centralize all customer data with full control</div></div>
+      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f9f9;</div><div class="gc-title">Ensure data quality</div><div class="gc-desc">Ship clean instrumentation and validate schemas in real time</div></div>
+      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f6e1;&#xfe0f;</div><div class="gc-title">Ensure regulatory compliance</div><div class="gc-desc">Manage PII and consent to meet regulatory requirements</div></div>
+      <div class="goal-card selected" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f465;</div><div class="gc-title">Build a customer 360</div><div class="gc-desc">Stitch identities from every source into a single customer view in your warehouse</div></div>
+      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f504;</div><div class="gc-title">Activate warehouse data</div><div class="gc-desc">Segment and send enriched customer data to ad platforms and engagement tools</div></div>
+      <div class="goal-card" onclick="this.classList.toggle('selected')"><div class="gc-check"></div><div class="gc-icon">&#x1f3db;&#xfe0f;</div><div class="gc-title">Build a warehouse-native CDP</div><div class="gc-desc">Collect, unify, and activate customer data with your warehouse as the system of record</div></div>
     </div>
     <div class="cta-row"><button class="btn btn-pill btn-outline">Back</button><button class="btn btn-pill btn-blue" style="min-width:180px;">Finish setup</button></div>
   </div>
@@ -479,7 +487,7 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
   </div>
   <div class="qs-panel">
     <div class="qs-hdr">
-      <div class="qs-hdr-left"><span>&#x26a1;</span><span class="qs-hdr-title">Getting started</span><span class="qs-hdr-count">2/11</span></div>
+      <div class="qs-hdr-left"><span>&#x26a1;</span><span class="qs-hdr-title">Getting started</span><span class="qs-hdr-count">2/13</span></div>
       <button class="qs-close">&times;</button>
     </div>
     <div class="qs-sec">
@@ -508,10 +516,38 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
       <div class="qs-row"><div class="qs-dot pend"></div><div class="qs-title">Create a tracking plan</div><span class="qs-arrow">&#x203a;</span></div>
     </div>
     <div class="qs-sec">
-      <div class="qs-sec-hdr locked">DATA ACTIVATION &#x1f512; <span>0/1</span></div>
-      <div class="qs-row"><div class="qs-dot lock">&#x1f512;</div><div class="qs-title lock">Sync warehouse data via Reverse ETL</div><span class="qs-arrow">&#x203a;</span></div>
-      <div class="qs-row"><div class="qs-dot grey"></div><div class="qs-title grey">Enable Profiles</div><span class="qs-badge" style="margin-left:auto;margin-right:6px;">ENTERPRISE</span><span class="qs-arrow">&#x203a;</span></div>
-      <div class="qs-row"><div class="qs-dot grey"></div><div class="qs-title grey">Create your first Audience</div><span class="qs-badge" style="margin-left:auto;margin-right:6px;">ENTERPRISE</span><span class="qs-arrow">&#x203a;</span></div>
+      <div class="qs-sec-hdr">DATA ACTIVATION <span>0/3</span></div>
+      <div class="qs-row"><div class="qs-dot curr">9</div><div class="qs-title">Sync warehouse data via Reverse ETL</div><span class="qs-arrow">&#x2039;</span></div>
+      <div class="qs-exp">
+        Send modeled customer data from your warehouse to downstream tools. Three of the most common use cases:
+        <div class="retl-uc-grid">
+          <div class="retl-uc-card">
+            <div class="retl-uc-icon">&#x1f9e0;</div>
+            <div class="retl-uc-body">
+              <div class="retl-uc-title">Activate ML &amp; computed traits in engagement tools</div>
+              <div class="retl-uc-desc">Sync warehouse-computed metrics (LTV, churn score, propensity) to Braze, Iterable, Customer.io.</div>
+            </div>
+          </div>
+          <div class="retl-uc-card">
+            <div class="retl-uc-icon">&#x1f3af;</div>
+            <div class="retl-uc-body">
+              <div class="retl-uc-title">Sync audiences to marketing &amp; ad platforms <span class="qs-badge-beta">BETA</span></div>
+              <div class="retl-uc-desc">Build segments in SQL or our Audiences builder, push to Iterable, Customer.io, Google Ads, Meta.</div>
+            </div>
+          </div>
+          <div class="retl-uc-card">
+            <div class="retl-uc-icon">&#x1f504;</div>
+            <div class="retl-uc-body">
+              <div class="retl-uc-title">Enrich CRM &amp; ops tools with profile data</div>
+              <div class="retl-uc-desc">Keep Salesforce, HubSpot, Zendesk continuously updated with the canonical customer record.</div>
+            </div>
+          </div>
+        </div>
+        <div class="retl-eng-note">&#x1f913; <strong>Engineer?</strong> You can also turn warehouse tables into a real-time event stream for backend infra (Kafka, Redis, HTTP endpoints).</div>
+        <div style="display:flex;gap:8px;"><button class="btn btn-pill-sm btn-blue">Create rETL sync</button><button class="btn btn-ghost" style="font-size:12px;">Browse use cases</button></div>
+      </div>
+      <div class="qs-row"><div class="qs-dot pend"></div><div class="qs-title">Enable Profiles</div><span class="qs-arrow">&#x203a;</span></div>
+      <div class="qs-row"><div class="qs-dot pend"></div><div class="qs-title">Create your first Audience</div><span class="qs-arrow">&#x203a;</span></div>
     </div>
     <div class="qs-sec">
       <div class="qs-sec-hdr">YOUR PLAN</div>

@@ -336,6 +336,13 @@ body {
   letter-spacing: 0.3px;
 }
 .badge-enterprise { background: #F3E8FF; color: #7C3AED; }
+.badge-beta { background: #FEF3C7; color: #92400E; }
+.retl-uc-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 12px 0; }
+.retl-uc-card { display: flex; gap: 10px; padding: 10px 12px; border: 1px solid var(--rs-grey-100); border-radius: var(--rs-radius-base); background: white; align-items: flex-start; }
+.retl-uc-icon { font-size: 18px; flex-shrink: 0; line-height: 1.2; }
+.retl-uc-body { flex: 1; }
+.retl-uc-title { font-size: 12px; font-weight: 600; color: var(--rs-grey-900); display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+.retl-uc-desc { font-size: 11px; color: var(--rs-grey-500); line-height: 1.4; }
 .badge-popular { background: var(--rs-blue-50); color: var(--rs-blue-500); }
 .badge-enabled { background: var(--rs-green-50); color: var(--rs-green-500); }
 
@@ -1000,7 +1007,7 @@ body {
             <label class="radio-option selected">
               <input type="radio" name="persona" checked>
               <div class="option-content">
-                <div class="option-title">&#x1f469;&#x200d;&#x1f4bb; Technical IC</div>
+                <div class="option-title">&#x1f469;&#x200d;&#x1f4bb; Technical user</div>
                 <div class="option-desc">Engineer, data engineer, analytics engineer, SRE</div>
               </div>
             </label>
@@ -1021,19 +1028,19 @@ body {
           </div>
         </div>
         <div class="input-group">
-          <label>How do you prefer to set things up?</label>
+          <label>How do you prefer to work with RudderStack?</label>
           <div class="checkbox-group">
+            <label class="checkbox-option">
+              <input type="checkbox">
+              <div class="option-content"><div class="option-title">Visual UI configuration</div><div class="option-desc">Point-and-click setup in the web app</div></div>
+            </label>
             <label class="checkbox-option selected">
               <input type="checkbox" checked>
-              <div class="option-content"><div class="option-title">Command line (CLI, SDKs, IaC)</div></div>
+              <div class="option-content"><div class="option-title">Code-based configuration</div><div class="option-desc">CLI, SDKs, Terraform / IaC</div></div>
             </label>
             <label class="checkbox-option">
               <input type="checkbox">
-              <div class="option-content"><div class="option-title">Visual UI (point-and-click)</div></div>
-            </label>
-            <label class="checkbox-option">
-              <input type="checkbox">
-              <div class="option-content"><div class="option-title">API / programmatic (scripts, automation, agents)</div></div>
+              <div class="option-content"><div class="option-title">Agentic / AI-assisted</div><div class="option-desc">MCP, Claude, Cursor, or other LLM tooling</div></div>
             </label>
           </div>
         </div>
@@ -1096,7 +1103,7 @@ body {
             <label class="radio-option" style="padding: 8px 16px;"><input type="radio" name="migration"><span class="option-title">Snowplow</span></label>
             <label class="radio-option" style="padding: 8px 16px;"><input type="radio" name="migration"><span class="option-title">Hightouch</span></label>
             <label class="radio-option" style="padding: 8px 16px;"><input type="radio" name="migration"><span class="option-title">Other</span></label>
-            <label class="radio-option selected" style="padding: 8px 16px;"><input type="radio" name="migration" checked><span class="option-title">Not migrating &mdash; here to build a warehouse-native CDP</span></label>
+            <label class="radio-option selected" style="padding: 8px 16px;"><input type="radio" name="migration" checked><span class="option-title">Not migrating &mdash; this is my first CDP</span></label>
           </div>
         </div>
         <div class="input-group">
@@ -1113,7 +1120,7 @@ body {
         </div>
         <div class="input-group">
           <label>What other tools does your team use? <span style="color: var(--rs-grey-400)">(optional)</span></label>
-          <input type="text" class="input-field" placeholder="&#x1f50d; Search tools... e.g. Amplitude, Slack, dbt">
+          <input type="text" class="input-field" placeholder="&#x1f50d; Search tools... e.g. Google Ads, Amplitude, Braze">
           <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;">
             <span class="chip selected">&#x2715; Amplitude</span>
             <span class="chip selected">&#x2715; dbt</span>
@@ -1154,7 +1161,7 @@ body {
         <div class="progress-bar"><div class="progress-bar-fill" style="width: 100%"></div></div>
         <p class="step-text">Step 3 of 3</p>
         <h1 class="auth-title">What do you want to do with RudderStack?</h1>
-        <p class="auth-subtitle">Pick all that apply. We'll personalize your setup.</p>
+        <p class="auth-subtitle">Pick all that apply.</p>
       </div>
       <div class="goal-grid">
         <div class="goal-card selected" onclick="this.classList.toggle('selected')">
@@ -1166,32 +1173,32 @@ body {
         <div class="goal-card" onclick="this.classList.toggle('selected')">
           <div class="goal-check"></div>
           <div class="goal-icon">&#x1f9f9;</div>
-          <div class="goal-title">Deliver clean, trustworthy data</div>
-          <div class="goal-desc">Validate schemas, block PII, and transform events before delivery</div>
+          <div class="goal-title">Ensure data quality</div>
+          <div class="goal-desc">Ship clean instrumentation and validate schemas in real time</div>
         </div>
         <div class="goal-card" onclick="this.classList.toggle('selected')">
           <div class="goal-check"></div>
           <div class="goal-icon">&#x1f6e1;&#xfe0f;</div>
           <div class="goal-title">Ensure regulatory compliance</div>
-          <div class="goal-desc">GDPR, CCPA, HIPAA, consent management, and data controls</div>
+          <div class="goal-desc">Manage PII and consent to meet regulatory requirements</div>
         </div>
         <div class="goal-card selected" onclick="this.classList.toggle('selected')">
           <div class="goal-check"></div>
           <div class="goal-icon">&#x1f465;</div>
-          <div class="goal-title">Unify customer identity</div>
-          <div class="goal-desc">Resolve identities across sources into a single customer view</div>
+          <div class="goal-title">Build a customer 360</div>
+          <div class="goal-desc">Stitch identities from every source into a single customer view in your warehouse</div>
         </div>
         <div class="goal-card" onclick="this.classList.toggle('selected')">
           <div class="goal-check"></div>
           <div class="goal-icon">&#x1f504;</div>
-          <div class="goal-title">Sync warehouse data to tools</div>
-          <div class="goal-desc">Activate modeled data in marketing, sales &amp; product tools via rETL</div>
+          <div class="goal-title">Activate warehouse data</div>
+          <div class="goal-desc">Segment and send enriched customer data to ad platforms and engagement tools</div>
         </div>
         <div class="goal-card" onclick="this.classList.toggle('selected')">
           <div class="goal-check"></div>
           <div class="goal-icon">&#x1f3db;&#xfe0f;</div>
           <div class="goal-title">Build a warehouse-native CDP</div>
-          <div class="goal-desc">Centralize all customer data in your warehouse with full control</div>
+          <div class="goal-desc">Collect, unify, and activate customer data with your warehouse as the system of record</div>
         </div>
       </div>
       <div class="cta-row">
@@ -1668,7 +1675,7 @@ rudder.page();
         <div class="drawer-header-left">
           <span>&#x26a1;</span>
           <span class="drawer-header-title">Getting started</span>
-          <span class="drawer-header-count">2/11 complete</span>
+          <span class="drawer-header-count">2/13 complete</span>
         </div>
         <button class="drawer-close">&times;</button>
       </div>
@@ -1732,12 +1739,49 @@ rudder.identify(<span class="code-string">'user_123'</span>, {
 
         <!-- DATA ACTIVATION -->
         <div class="qs-section">
-          <div class="qs-section-header locked">
-            DATA ACTIVATION &#x1f512; <span class="qs-section-count">0/1</span>
+          <div class="qs-section-header">
+            DATA ACTIVATION <span class="qs-section-count">0/3</span>
           </div>
-          <div class="qs-item"><div class="qs-icon locked">&#x1f512;</div><div class="qs-item-title locked">Sync warehouse data via Reverse ETL</div><span class="qs-item-arrow">&#x2304;</span></div>
-          <div class="qs-item"><div class="qs-icon greyed">&#x2022;</div><div class="qs-item-title greyed">Enable Profiles</div><span class="badge badge-enterprise" style="margin-left: auto; margin-right: 8px;">ENTERPRISE</span><span class="qs-item-arrow">&#x2304;</span></div>
-          <div class="qs-item"><div class="qs-icon greyed">&#x2022;</div><div class="qs-item-title greyed">Create your first Audience</div><span class="badge badge-enterprise" style="margin-left: auto; margin-right: 8px;">ENTERPRISE</span><span class="qs-item-arrow">&#x2304;</span></div>
+          <div class="qs-item" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block';" style="cursor: pointer;">
+            <div class="qs-icon current">9</div>
+            <div class="qs-item-title">Sync warehouse data via Reverse ETL</div>
+            <span class="qs-item-arrow">&#x2303;</span>
+          </div>
+          <div class="qs-expanded" style="display: block;">
+            Send modeled customer data from your warehouse to downstream tools. Three of the most common use cases:
+            <div class="retl-uc-grid">
+              <div class="retl-uc-card">
+                <div class="retl-uc-icon">&#x1f9e0;</div>
+                <div class="retl-uc-body">
+                  <div class="retl-uc-title">Activate ML &amp; computed traits in engagement tools</div>
+                  <div class="retl-uc-desc">Sync warehouse-computed metrics (LTV, churn score, propensity) to Braze, Iterable, Customer.io for personalized engagement.</div>
+                </div>
+              </div>
+              <div class="retl-uc-card">
+                <div class="retl-uc-icon">&#x1f3af;</div>
+                <div class="retl-uc-body">
+                  <div class="retl-uc-title">Sync audiences to marketing &amp; ad platforms <span class="badge badge-beta">BETA</span></div>
+                  <div class="retl-uc-desc">Build segments in SQL or our visual Audiences builder, push to Iterable, Customer.io, Google Ads, Meta.</div>
+                </div>
+              </div>
+              <div class="retl-uc-card">
+                <div class="retl-uc-icon">&#x1f504;</div>
+                <div class="retl-uc-body">
+                  <div class="retl-uc-title">Enrich CRM &amp; operational tools with profile data</div>
+                  <div class="retl-uc-desc">Keep Salesforce, HubSpot, Zendesk continuously updated with the canonical customer record, product usage, and account health.</div>
+                </div>
+              </div>
+            </div>
+            <div style="font-size: 11px; color: var(--rs-grey-500); margin-bottom: 8px; padding: 8px; background: var(--rs-grey-50); border-radius: var(--rs-radius-base);">
+              &#x1f913; <strong>Engineer?</strong> You can also turn warehouse tables into a real-time event stream for backend infra (Kafka, Redis, HTTP endpoints) &mdash; e.g. powering an in-house personalization engine at &lt;20ms.
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-primary btn-sm">Create rETL sync &rarr;</button>
+              <button class="btn btn-text btn-sm">Browse use cases &#x2197;</button>
+            </div>
+          </div>
+          <div class="qs-item"><div class="qs-icon pending"></div><div class="qs-item-title">Enable Profiles</div><span class="qs-item-arrow">&#x2304;</span></div>
+          <div class="qs-item"><div class="qs-icon pending"></div><div class="qs-item-title">Create your first Audience</div><span class="qs-item-arrow">&#x2304;</span></div>
         </div>
 
         <!-- YOUR PLAN -->
