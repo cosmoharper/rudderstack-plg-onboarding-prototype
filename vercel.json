@@ -1,9 +1,0 @@
-{
-  "buildCommand": "",
-  "outputDirectory": ".",
-  "framework": null,
-  "cleanUrls": false,
-  "rewrites": [
-    { "source": "/v2", "destination": "/v2.html" }
-  ]
-}
