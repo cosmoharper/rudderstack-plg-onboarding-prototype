@@ -857,10 +857,15 @@ body {
 </head>
 <body>
 
+<!-- Reference banner -->
+<div style="background: linear-gradient(135deg, #105ED5, #5B7AE8); color: white; padding: 8px 24px; font-size: 12px; text-align: center; position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 26px; display: flex; align-items: center; justify-content: center;">
+  <strong>V1 — Full-design reference (Phase 3 target).</strong> Not what ships May 12. <a href="v3-hybrid.html" style="color:white;text-decoration:underline;margin-left:8px;">See V3 (Hybrid MVP — what ships)</a> · <a href="v2.html" style="color:white;text-decoration:underline;margin-left:8px;">See V2 (FigJam-style reference)</a>
+</div>
+
 <!-- ============================================
      SCREEN NAVIGATION BAR
      ============================================ -->
-<nav class="screen-nav">
+<nav class="screen-nav" style="top: 26px;">
   <span class="nav-label">Signup</span>
   <a href="#signup-email" onclick="showScreen('signup-email')">Email / OAuth</a>
   <a href="#signup-profile" onclick="showScreen('signup-profile')">Profile + Region</a>

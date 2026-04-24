@@ -268,8 +268,13 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
 </head>
 <body>
 
+<!-- Reference banner -->
+<div style="background: linear-gradient(135deg, #105ED5, #5B7AE8); color: white; padding: 8px 24px; font-size: 12px; text-align: center; position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 26px; display: flex; align-items: center; justify-content: center;">
+  <strong>V2 — FigJam-style reference (Phase 3 target).</strong> Not what ships May 12. <a href="v3-hybrid.html" style="color:white;text-decoration:underline;margin-left:8px;">See V3 (Hybrid MVP — what ships)</a> · <a href="index.html" style="color:white;text-decoration:underline;margin-left:8px;">See V1 (full-design reference)</a>
+</div>
+
 <!-- NAV -->
-<nav class="v2-nav">
+<nav class="v2-nav" style="top: 26px;">
   <span class="nl">Signup</span>
   <a href="#" onclick="show('s1a')" class="active">Email</a>
   <a href="#" onclick="show('s1b')">Profile</a>
