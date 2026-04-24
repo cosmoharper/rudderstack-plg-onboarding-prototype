@@ -213,6 +213,12 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
 .retl-uc-title { font-size: 11px; font-weight: 600; color: var(--rs-grey-900); display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
 .retl-uc-desc { font-size: 11px; color: var(--rs-grey-600); line-height: 1.4; }
 .retl-eng-note { font-size: 11px; color: var(--rs-grey-600); margin: 8px 0; padding: 8px; background: var(--rs-grey-50); border-radius: 6px; }
+.retl-dest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 10px 0; }
+.retl-dest-card { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 6px; border: 1px solid var(--rs-grey-100); border-radius: 6px; background: white; cursor: pointer; transition: all .15s; text-align: center; }
+.retl-dest-card:hover { border-color: var(--rs-blue); background: var(--rs-blue-light); transform: translateY(-1px); }
+.retl-dest-logo { width: 24px; height: 24px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; flex-shrink: 0; }
+.retl-dest-name { font-size: 10px; font-weight: 500; color: var(--rs-grey-800); line-height: 1.2; }
+.retl-personalized-note { font-size: 11px; color: var(--rs-grey-600); margin: 8px 0; padding: 8px; background: var(--rs-blue-light); border-radius: 6px; display: flex; gap: 6px; align-items: flex-start; }
 .qs-exp { background: var(--rs-grey-50); border: 1px solid var(--rs-grey-100); border-radius: var(--rs-radius-md); padding: 14px; margin: 6px 0 10px; font-size: 13px; color: var(--rs-grey-600); line-height: 1.5; }
 .qs-exp .btn { margin-top: 10px; }
 .qs-main { flex: 1; background: var(--rs-grey-50); display: flex; align-items: center; justify-content: center; }
@@ -518,31 +524,19 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
       <div class="qs-sec-hdr">DATA ACTIVATION <span>0/1</span></div>
       <div class="qs-row"><div class="qs-dot curr">9</div><div class="qs-title">Sync warehouse data via Reverse ETL</div><span class="qs-arrow">&#x2039;</span></div>
       <div class="qs-exp">
-        Send modeled customer data from your warehouse to downstream tools. Three common use cases:
-        <div class="retl-uc-grid">
-          <div class="retl-uc-card">
-            <div class="retl-uc-icon">&#x1f9e0;</div>
-            <div class="retl-uc-body">
-              <div class="retl-uc-title">Activate ML &amp; computed traits in engagement tools</div>
-              <div class="retl-uc-desc">Sync warehouse-computed metrics (LTV, churn score, propensity) to Braze, Iterable, Customer.io.</div>
-            </div>
-          </div>
-          <div class="retl-uc-card">
-            <div class="retl-uc-icon">&#x1f504;</div>
-            <div class="retl-uc-body">
-              <div class="retl-uc-title">Enrich CRM &amp; ops tools with profile data</div>
-              <div class="retl-uc-desc">Keep Salesforce, HubSpot, Zendesk continuously updated with the canonical customer record.</div>
-            </div>
-          </div>
-          <div class="retl-uc-card">
-            <div class="retl-uc-icon">&#x1f6e0;&#xfe0f;</div>
-            <div class="retl-uc-body">
-              <div class="retl-uc-title">Stream warehouse tables to backend infra</div>
-              <div class="retl-uc-desc">Real-time event stream to Kafka, Redis, HTTP endpoints &mdash; power in-house personalization at &lt;20ms.</div>
-            </div>
-          </div>
+        Send modeled customer data from your warehouse to downstream tools. Pick a destination to get started:
+        <div class="retl-dest-grid">
+          <div class="retl-dest-card"><div class="retl-dest-logo" style="background:#F9AB00;">GA</div><div class="retl-dest-name">Google Analytics 4</div></div>
+          <div class="retl-dest-card"><div class="retl-dest-logo" style="background:#7B4DFF;">M</div><div class="retl-dest-name">Mixpanel</div></div>
+          <div class="retl-dest-card"><div class="retl-dest-logo" style="background:#1E61F0;">A</div><div class="retl-dest-name">Amplitude</div></div>
+          <div class="retl-dest-card"><div class="retl-dest-logo" style="background:#F54E00;">Ph</div><div class="retl-dest-name">PostHog</div></div>
+          <div class="retl-dest-card"><div class="retl-dest-logo" style="background:#FF7A59;">Hb</div><div class="retl-dest-name">HubSpot</div></div>
+          <div class="retl-dest-card"><div class="retl-dest-logo" style="background:#00A1E0;">Sf</div><div class="retl-dest-name">Salesforce</div></div>
+          <div class="retl-dest-card"><div class="retl-dest-logo" style="background:#F89C3E;">Bz</div><div class="retl-dest-name">Braze</div></div>
+          <div class="retl-dest-card"><div class="retl-dest-logo" style="background:#7C3AED;">Ci</div><div class="retl-dest-name">Customer.io</div></div>
         </div>
-        <div style="display:flex;gap:8px;"><button class="btn btn-pill-sm btn-blue">Create rETL sync</button><button class="btn btn-ghost" style="font-size:12px;">Browse use cases</button></div>
+        <div class="retl-personalized-note"><span>&#x2728;</span><span><strong>Phase 2:</strong> Personalized from your onboarding tool selections + usage-ranked rETL destinations.</span></div>
+        <div style="display:flex;gap:8px;"><button class="btn btn-pill-sm btn-blue">See all destinations</button><button class="btn btn-ghost" style="font-size:12px;">Browse use cases</button></div>
       </div>
     </div>
     <div class="qs-sec">
