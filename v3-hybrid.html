@@ -173,6 +173,71 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
 /* Trial banner (Amplitude Guide example) */
 .trial-banner { background: linear-gradient(90deg, var(--rs-amber), #DE5731); color: white; padding: 8px 16px; font-size: 13px; text-align: center; }
 .trial-banner a { color: white; font-weight: 600; text-decoration: underline; margin-left: 8px; }
+
+/* SDK picker */
+.sdk-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+.sdk-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 8px; border: 1.5px solid var(--rs-grey-100); border-radius: 8px; cursor: pointer; background: white; text-align: center; transition: all .15s; }
+.sdk-card:hover { border-color: var(--rs-blue-500); }
+.sdk-card.selected { border-color: var(--rs-blue-500); background: var(--rs-blue-50); }
+.sdk-card-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: white; }
+.sdk-card-name { font-size: 12px; font-weight: 500; }
+.sdk-card-type { font-size: 10px; color: var(--rs-grey-400); }
+.see-all-link { display: inline-block; font-size: 12px; color: var(--rs-blue-500); text-decoration: none; margin-bottom: 12px; }
+
+/* OR divider */
+.or-divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; color: var(--rs-grey-400); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; font-weight: 600; }
+.or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: var(--rs-grey-100); }
+
+/* Accordion */
+.accordion { border: 1px solid var(--rs-grey-100); border-radius: 6px; margin-bottom: 6px; background: white; }
+.accordion-hdr { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; cursor: pointer; font-size: 12px; font-weight: 500; }
+.accordion-hdr:hover { background: var(--rs-grey-50); }
+.accordion-arrow { color: var(--rs-grey-400); font-size: 10px; }
+.accordion-body { padding: 0 12px 12px; display: none; }
+.accordion.open .accordion-body { display: block; }
+.accordion.open .accordion-arrow { transform: rotate(180deg); }
+.accordion.copy-all { background: var(--rs-blue-50); border-color: #C5D9F5; }
+.accordion.copy-all .accordion-hdr { color: var(--rs-blue-600); font-weight: 600; }
+
+.snippet { background: var(--rs-grey-900); color: #D4D8E0; padding: 10px; border-radius: 4px; font-family: 'SF Mono', monospace; font-size: 11px; line-height: 1.55; position: relative; overflow-x: auto; }
+.snippet-copy { position: absolute; top: 4px; right: 4px; background: #474E5A; color: #B6C0CD; border: none; padding: 2px 8px; border-radius: 3px; font-size: 10px; cursor: pointer; }
+.snippet-copy:hover { background: var(--rs-blue-500); color: white; }
+
+/* Live events status (appears after first event) */
+.live-events-status { display: flex; gap: 10px; padding: 12px 14px; background: var(--rs-green-50); border: 1px solid #B7E5CC; border-radius: 6px; margin: 12px 0; }
+.live-events-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--rs-green-500); flex-shrink: 0; margin-top: 4px; box-shadow: 0 0 0 0 rgba(2,187,127,.5); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(2,187,127,.5);} 70% {box-shadow: 0 0 0 8px rgba(2,187,127,0);} 100% {box-shadow: 0 0 0 0 rgba(2,187,127,0);} }
+.live-events-text { flex: 1; }
+.live-events-text strong { display: block; font-size: 13px; color: var(--rs-grey-900); margin-bottom: 2px; }
+.live-events-text span { font-size: 12px; color: var(--rs-grey-600); }
+
+/* Destination category */
+.dest-cat { margin-bottom: 16px; }
+.dest-cat-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.dest-cat-title { font-size: 12px; font-weight: 600; color: var(--rs-grey-800); }
+.dest-cat-title-icon { margin-right: 4px; }
+.dest-cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.dest-mini-card { display: flex; align-items: center; gap: 6px; padding: 8px; border: 1px solid var(--rs-grey-100); border-radius: 6px; cursor: pointer; background: white; transition: all .15s; }
+.dest-mini-card:hover { border-color: var(--rs-blue-500); background: var(--rs-blue-50); }
+.dest-mini-card.selected { border-color: var(--rs-blue-500); background: var(--rs-blue-50); }
+.dest-mini-icon { width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; flex-shrink: 0; }
+.dest-mini-name { font-size: 11px; font-weight: 500; }
+
+.warehouse-banner { display: flex; gap: 8px; padding: 8px 10px; background: var(--rs-blue-50); border-radius: 6px; font-size: 11px; color: var(--rs-grey-700); margin: 8px 0 12px; }
+
+/* Transformation templates */
+.tx-lang-toggle { display: flex; gap: 8px; margin: 12px 0; }
+.tx-lang-toggle label { padding: 6px 14px; border: 1.5px solid var(--rs-grey-100); border-radius: 6px; cursor: pointer; font-size: 12px; }
+.tx-lang-toggle label.selected { border-color: var(--rs-blue-500); background: var(--rs-blue-50); }
+.tx-template-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 8px 0; }
+.tx-template { padding: 8px 10px; border: 1px solid var(--rs-grey-100); border-radius: 6px; cursor: pointer; background: white; transition: all .15s; }
+.tx-template:hover { border-color: var(--rs-blue-500); background: var(--rs-blue-50); }
+.tx-template-name { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+.tx-template-desc { font-size: 10px; color: var(--rs-grey-500); line-height: 1.3; }
+
+/* Step status icon variants */
+.qs-icon.celebrating { background: var(--rs-green-500); color: white; animation: pulseSmall 1.5s ease-out 1; }
+@keyframes pulseSmall { 0% { transform: scale(.9);} 50% {transform: scale(1.15);} 100% {transform: scale(1);} }
 </style>
 </head>
 <body>
@@ -387,7 +452,7 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
 
     <div class="qs-drawer">
       <div class="qs-hdr">
-        <div class="qs-hdr-left"><span style="font-size:18px;">⚡</span><span class="qs-hdr-title">Quickstart</span><span class="qs-hdr-count">0/6 complete</span></div>
+        <div class="qs-hdr-left"><span style="font-size:18px;">⚡</span><span class="qs-hdr-title">Quickstart</span><span class="qs-hdr-count">0/5 complete</span></div>
         <button class="qs-close">×</button>
       </div>
 
@@ -396,71 +461,254 @@ select.fi { appearance: none; background-image: url("data:image/svg+xml,%3Csvg w
         <button class="btn btn-text btn-sm">Invite →</button>
       </div>
 
-      <!-- Step 1: Connect Event Stream source (with autoTrack toggle) -->
+      <!-- ============= STEP 1: Connect Event Stream source ============= -->
       <div class="qs-item active">
         <div class="qs-icon current">1</div>
         <div class="qs-item-title">Connect an Event Stream source</div>
         <span class="qs-item-arrow">⌃</span>
       </div>
       <div class="qs-expanded">
-        <p>Install the RudderStack SDK on your website, app, or server to start collecting events.</p>
+        <p style="margin-bottom: 6px;"><strong style="color:var(--rs-grey-900);">Choose your SDK</strong></p>
+        <p style="font-size:12px;margin-bottom:8px;">Install the RudderStack SDK to start collecting events.</p>
 
-        <div class="autotrack-toggle">
+        <div class="sdk-picker">
+          <div class="sdk-card selected">
+            <div class="sdk-card-icon" style="background:#F7DF1E;color:#000;">JS</div>
+            <div class="sdk-card-name">JavaScript</div>
+            <div class="sdk-card-type">Web</div>
+          </div>
+          <div class="sdk-card">
+            <div class="sdk-card-icon" style="background:#6366F1;">🪝</div>
+            <div class="sdk-card-name">Webhook</div>
+            <div class="sdk-card-type">Any source</div>
+          </div>
+          <div class="sdk-card">
+            <div class="sdk-card-icon" style="background:#0EA5E9;">{ }</div>
+            <div class="sdk-card-name">HTTP</div>
+            <div class="sdk-card-type">Direct API</div>
+          </div>
+        </div>
+        <a href="#" class="see-all-link">See all event stream sources →</a>
+
+        <div class="autotrack-toggle" style="margin-top:8px;">
           <div class="tg"></div>
           <div class="autotrack-text">
             <strong>Enable autoTrack</strong>
-            <span>Automatically capture pageviews, clicks, and form fills — no code required after install</span>
+            <span>Automatically capture pageviews, clicks, and form fills — no code required.</span>
+            <a href="#" style="font-size:11px;color:var(--rs-blue-500);text-decoration:none;display:inline-block;margin-top:4px;">View autoTrack docs →</a>
           </div>
         </div>
 
-        <button class="btn btn-primary btn-sm">Add Event Stream source →</button>
-        <button class="btn btn-text btn-sm">View docs ↗</button>
+        <div class="or-divider">OR instrument manually</div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+          <div class="accordion-hdr">▸ Instrument page call <span class="accordion-arrow">⌃</span></div>
+          <div class="accordion-body">
+            <div class="snippet"><button class="snippet-copy">Copy</button>rudder.<span class="ck">page</span>(<span class="cs">'Home'</span>);</div>
+            <p style="font-size:11px;color:var(--rs-grey-500);margin-top:6px;">Tracks every page view in your app.</p>
+          </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+          <div class="accordion-hdr">▸ Instrument track call <span class="accordion-arrow">⌃</span></div>
+          <div class="accordion-body">
+            <div class="snippet"><button class="snippet-copy">Copy</button>rudder.<span class="ck">track</span>(<span class="cs">'Order Completed'</span>, {
+  revenue: <span class="cs">99.00</span>,
+  product: <span class="cs">'Premium plan'</span>
+});</div>
+            <p style="font-size:11px;color:var(--rs-grey-500);margin-top:6px;">Tracks user actions and key business events.</p>
+          </div>
+        </div>
+
+        <div class="accordion" onclick="this.classList.toggle('open')">
+          <div class="accordion-hdr">▸ Instrument identify call <span class="accordion-arrow">⌃</span></div>
+          <div class="accordion-body">
+            <div class="snippet"><button class="snippet-copy">Copy</button>rudder.<span class="ck">identify</span>(<span class="cs">'user_123'</span>, {
+  email: <span class="cs">'user@example.com'</span>,
+  name: <span class="cs">'Ada Lovelace'</span>
+});</div>
+            <p style="font-size:11px;color:var(--rs-grey-500);margin-top:6px;">Ties events to known users and sets traits.</p>
+          </div>
+        </div>
+
+        <div class="accordion copy-all" onclick="this.classList.toggle('open')">
+          <div class="accordion-hdr">📋 Copy all (with SDK loader) <span class="accordion-arrow">⌃</span></div>
+          <div class="accordion-body">
+            <p style="font-size:11px;color:var(--rs-grey-600);margin-bottom:6px;">Paste this in your app's <code style="background:var(--rs-grey-100);padding:1px 4px;border-radius:3px;font-size:10px;">&lt;head&gt;</code> — includes loader + autoTrack + all 3 calls.</p>
+            <div class="snippet"><button class="snippet-copy">Copy</button>&lt;<span class="ck">script</span>&gt;
+  !function(){<span style="color:#6B7280;">/* RudderStack loader */</span>}();
+  rudder.load(
+    <span class="cs">'WRITE_KEY_abc123'</span>,
+    <span class="cs">'https://dataplane.rudderstack.com'</span>,
+    { autoTrack: <span class="cs">true</span> }
+  );
+  rudder.<span class="ck">page</span>();
+  rudder.<span class="ck">identify</span>(<span class="cs">'user_123'</span>, { email: <span class="cs">'user@example.com'</span> });
+  rudder.<span class="ck">track</span>(<span class="cs">'Signed Up'</span>);
+&lt;/<span class="ck">script</span>&gt;</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <button class="btn btn-primary btn-sm">Add Event Stream source →</button>
+          <button class="btn btn-text btn-sm">View docs ↗</button>
+        </div>
+
+        <!-- Live events status (surfaces after first event) -->
+        <div class="live-events-status" style="margin-top:14px;">
+          <div class="live-events-dot"></div>
+          <div class="live-events-text">
+            <strong>🟢 Live events flowing</strong>
+            <span>Last event: <strong>Page Viewed</strong> · 12 events in last 5 minutes</span>
+          </div>
+        </div>
+        <button class="btn btn-secondary btn-sm" style="width:100%;justify-content:center;">Open live event viewer →</button>
+        <p style="font-size:11px;color:var(--rs-grey-500);text-align:center;margin-top:8px;">Verify events are flowing, then return here to connect a destination.</p>
       </div>
 
-      <!-- Step 2: Connect a destination (any) -->
+      <!-- ============= STEP 2: View live events (auto-surfaces) ============= -->
       <div class="qs-item">
-        <div class="qs-icon pending"></div>
-        <div class="qs-item-title">Connect a destination</div>
-        <span class="qs-item-arrow">⌄</span>
-      </div>
-
-      <!-- Step 3: Make a connection -->
-      <div class="qs-item">
-        <div class="qs-icon pending"></div>
-        <div class="qs-item-title">Make a connection</div>
-        <span class="qs-item-arrow">⌄</span>
-      </div>
-
-      <!-- Step 4: View live events -->
-      <div class="qs-item">
-        <div class="qs-icon pending"></div>
+        <div class="qs-icon pending">2</div>
         <div class="qs-item-title">View live events</div>
         <span class="qs-item-arrow">⌄</span>
       </div>
 
-      <!-- Step 5: Send an event -->
-      <div class="qs-item">
-        <div class="qs-icon pending"></div>
-        <div class="qs-item-title">Send an event</div>
-        <span class="qs-item-arrow">⌄</span>
+      <!-- ============= STEP 3: Connect a destination (warehouse OR cloud) ============= -->
+      <div class="qs-item" onclick="document.getElementById('dest-exp').style.display = document.getElementById('dest-exp').style.display === 'block' ? 'none' : 'block'" style="cursor:pointer;">
+        <div class="qs-icon pending">3</div>
+        <div class="qs-item-title">Connect a destination</div>
+        <span class="qs-item-arrow">⌃</span>
       </div>
+      <div class="qs-expanded" id="dest-exp" style="display:block;">
+        <p style="margin-bottom:12px;">Send your event data downstream. Pick a destination type to get started.</p>
 
-      <!-- Step 6: Sync via Reverse ETL (NOT locked, informational) -->
-      <div class="qs-item" onclick="document.getElementById('retl-exp').style.display = document.getElementById('retl-exp').style.display === 'block' ? 'none' : 'block'">
-        <div class="qs-icon pending"></div>
-        <div class="qs-item-title">Sync warehouse data via Reverse ETL</div>
-        <span class="qs-item-arrow">⌄</span>
-      </div>
-      <div class="qs-expanded" id="retl-exp" style="display: block;">
-        <p>Send modeled customer data from your warehouse to downstream tools — analytics, ad platforms, CRMs, automation.</p>
-
-        <div class="qs-warning">
-          <span class="qs-tip-icon">ℹ️</span>
-          <div><strong style="color:var(--rs-amber);">Requires a warehouse destination</strong><br>Reverse ETL needs a connected warehouse (Snowflake, BigQuery, Redshift, Databricks, or Postgres) to sync data from. <strong>Not seeing the option below?</strong> Add a warehouse destination first.</div>
+        <!-- Warehouse destinations -->
+        <div class="dest-cat">
+          <div class="dest-cat-hdr">
+            <div class="dest-cat-title"><span class="dest-cat-title-icon">📦</span>Warehouse destinations</div>
+            <a href="#" style="font-size:11px;color:var(--rs-blue-500);text-decoration:none;">See all warehouses →</a>
+          </div>
+          <div class="warehouse-banner">
+            <span>💡</span>
+            <span><strong>Recommended.</strong> Connecting a warehouse unlocks Reverse ETL — sync your warehouse data back to cloud destinations later.</span>
+          </div>
+          <div class="dest-cat-grid">
+            <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#29B5E8;">❄️</div><div class="dest-mini-name">Snowflake</div></div>
+            <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#4285F4;">📊</div><div class="dest-mini-name">BigQuery</div></div>
+            <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#FF3621;">🧱</div><div class="dest-mini-name">Databricks</div></div>
+          </div>
         </div>
 
-        <button class="btn btn-primary btn-sm">Add a warehouse destination →</button>
-        <button class="btn btn-text btn-sm">Learn about rETL ↗</button>
+        <!-- Cloud destinations -->
+        <div style="border-top:1px solid var(--rs-grey-100);padding-top:14px;margin-top:14px;">
+          <p style="font-size:13px;font-weight:600;margin-bottom:4px;">☁️ Cloud destinations</p>
+          <p style="font-size:11px;color:var(--rs-grey-500);margin-bottom:12px;">Send events directly to the tools your team uses.</p>
+
+          <div class="dest-cat">
+            <div class="dest-cat-hdr">
+              <div class="dest-cat-title"><span class="dest-cat-title-icon">📈</span>Analytics tools</div>
+              <a href="#" style="font-size:11px;color:var(--rs-blue-500);text-decoration:none;">See all →</a>
+            </div>
+            <div class="dest-cat-grid">
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#1E61F0;">A</div><div class="dest-mini-name">Amplitude</div></div>
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#7B4DFF;">M</div><div class="dest-mini-name">Mixpanel</div></div>
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#F9AB00;">GA</div><div class="dest-mini-name">GA4</div></div>
+            </div>
+          </div>
+
+          <div class="dest-cat">
+            <div class="dest-cat-hdr">
+              <div class="dest-cat-title"><span class="dest-cat-title-icon">📣</span>Ad platforms</div>
+              <a href="#" style="font-size:11px;color:var(--rs-blue-500);text-decoration:none;">See all →</a>
+            </div>
+            <div class="dest-cat-grid">
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#4285F4;">G</div><div class="dest-mini-name">Google Ads</div></div>
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#0866FF;">f</div><div class="dest-mini-name">Meta</div></div>
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#0A66C2;">in</div><div class="dest-mini-name">LinkedIn</div></div>
+            </div>
+          </div>
+
+          <div class="dest-cat">
+            <div class="dest-cat-hdr">
+              <div class="dest-cat-title"><span class="dest-cat-title-icon">💼</span>CRMs</div>
+              <a href="#" style="font-size:11px;color:var(--rs-blue-500);text-decoration:none;">See all →</a>
+            </div>
+            <div class="dest-cat-grid">
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#00A1E0;">Sf</div><div class="dest-mini-name">Salesforce</div></div>
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#FF7A59;">Hb</div><div class="dest-mini-name">HubSpot</div></div>
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#1A7F37;">P</div><div class="dest-mini-name">Pipedrive</div></div>
+            </div>
+          </div>
+
+          <div class="dest-cat" style="margin-bottom:0;">
+            <div class="dest-cat-hdr">
+              <div class="dest-cat-title"><span class="dest-cat-title-icon">📨</span>Marketing automation</div>
+              <a href="#" style="font-size:11px;color:var(--rs-blue-500);text-decoration:none;">See all →</a>
+            </div>
+            <div class="dest-cat-grid">
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#F89C3E;">Bz</div><div class="dest-mini-name">Braze</div></div>
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#7C3AED;">Ci</div><div class="dest-mini-name">Customer.io</div></div>
+              <div class="dest-mini-card"><div class="dest-mini-icon" style="background:#332E5C;">It</div><div class="dest-mini-name">Iterable</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============= STEP 4: Add a transformation ============= -->
+      <div class="qs-item" onclick="document.getElementById('tx-exp').style.display = document.getElementById('tx-exp').style.display === 'block' ? 'none' : 'block'" style="cursor:pointer;">
+        <div class="qs-icon pending">4</div>
+        <div class="qs-item-title">Add a transformation</div>
+        <span class="qs-item-arrow">⌃</span>
+      </div>
+      <div class="qs-expanded" id="tx-exp" style="display:block;">
+        <p style="margin-bottom:8px;">Shape, mask, or enrich event data in-flight before it reaches your destination.</p>
+
+        <div class="qs-tip" style="margin:8px 0;">
+          <span class="qs-tip-icon">💡</span>
+          <span><strong>Pro tip:</strong> Use templates to handle common cases like masking PII or reshaping payloads to match destination schemas.</span>
+        </div>
+
+        <p style="font-size:12px;font-weight:600;margin:12px 0 6px;">Language</p>
+        <div class="tx-lang-toggle">
+          <label class="selected"><input type="radio" name="txlang" checked style="display:none;"> JavaScript</label>
+          <label><input type="radio" name="txlang" style="display:none;"> Python</label>
+        </div>
+
+        <p style="font-size:12px;font-weight:600;margin:12px 0 6px;">Popular templates</p>
+        <div class="tx-template-grid">
+          <div class="tx-template">
+            <div class="tx-template-name">🛡️ Mask PII</div>
+            <div class="tx-template-desc">Replace or mask sensitive personal data</div>
+          </div>
+          <div class="tx-template">
+            <div class="tx-template-name">🔐 Hash PII</div>
+            <div class="tx-template-desc">Hash email, phone for ad platforms</div>
+          </div>
+          <div class="tx-template">
+            <div class="tx-template-name">✏️ Rename Properties</div>
+            <div class="tx-template-desc">Match destination schema</div>
+          </div>
+        </div>
+        <a href="#" class="see-all-link">Browse all templates →</a>
+
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button class="btn btn-primary btn-sm">Create transformation →</button>
+          <button class="btn btn-secondary btn-sm">Skip — no transformation needed</button>
+        </div>
+      </div>
+
+      <!-- ============= STEP 5: Invite your team ============= -->
+      <div class="qs-item" onclick="document.getElementById('inv-exp').style.display = document.getElementById('inv-exp').style.display === 'block' ? 'none' : 'block'" style="cursor:pointer;">
+        <div class="qs-icon pending">5</div>
+        <div class="qs-item-title">Invite your team</div>
+        <span class="qs-item-arrow">⌄</span>
+      </div>
+      <div class="qs-expanded" id="inv-exp" style="display:none;">
+        <p>RudderStack works best when your whole team has access. Invite data engineers, marketers, and product teams.</p>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button class="btn btn-primary btn-sm">Invite teammates →</button>
+          <button class="btn btn-text btn-sm">It's just me!</button>
+        </div>
       </div>
 
     </div>
