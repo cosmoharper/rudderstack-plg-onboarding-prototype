@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RudderStack PLG Onboarding — V4 Deeplink Quickstart (12-hour MVP)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rs-blue-500: #105ED5;
+  --rs-blue-50: #EBF3FD;
+  --rs-blue-600: #0D4EA8;
+  --rs-green-500: #02BB7F;
+  --rs-green-50: #E6F8F1;
+  --rs-grey-0: #FFFFFF;
+  --rs-grey-50: #F5F6F8;
+  --rs-grey-100: #D8DEE4;
+  --rs-grey-200: #B6C0CD;
+  --rs-grey-300: #99A5B8;
+  --rs-grey-400: #818DA0;
+  --rs-grey-500: #6C7688;
+  --rs-grey-600: #596171;
+  --rs-grey-700: #474E5A;
+  --rs-grey-800: #353A44;
+  --rs-grey-900: #21252C;
+  --rs-font: 'Inter', system-ui, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--rs-font); font-size: 14px; color: var(--rs-grey-900); background: var(--rs-grey-50); line-height: 1.5; }
+
+/* Banner */
+.banner { background: linear-gradient(135deg, var(--rs-blue-500), #5B7AE8); color: white; padding: 10px 24px; font-size: 12px; text-align: center; }
+.banner strong { font-weight: 600; }
+.banner a { color: white; text-decoration: underline; margin-left: 8px; }
+
+/* Annotation */
+.annotation { background: #FFF7ED; border-bottom: 1px solid #FED7AA; padding: 12px 24px; font-size: 13px; color: #9A3412; max-width: 1200px; margin: 0 auto; }
+.annotation strong { font-weight: 600; }
+
+/* Layout */
+.app { display: flex; min-height: calc(100vh - 80px); position: relative; }
+
+/* Faded background mock */
+.bg-mock { flex: 1; background: var(--rs-grey-900); padding: 24px 32px; opacity: .35; pointer-events: none; }
+.bg-mock h1 { color: white; font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+.bg-mock .panel { background: var(--rs-grey-800); border-radius: 8px; padding: 24px; min-height: 400px; color: var(--rs-grey-300); }
+
+/* Drawer */
+.drawer { position: absolute; top: 0; left: 0; bottom: 0; width: 420px; background: white; border-right: 1px solid var(--rs-grey-100); box-shadow: 4px 0 16px rgba(0,0,0,.08); display: flex; flex-direction: column; overflow-y: auto; }
+
+.drawer-header { display: flex; align-items: center; gap: 10px; padding: 20px 24px 16px; border-bottom: 1px solid var(--rs-grey-100); }
+.drawer-header .icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+.drawer-header h2 { font-size: 16px; font-weight: 600; flex: 1; }
+.drawer-header .close { color: var(--rs-grey-400); cursor: pointer; font-size: 18px; }
+
+/* Progress */
+.progress { padding: 14px 24px; border-bottom: 1px solid var(--rs-grey-100); display: flex; align-items: center; gap: 12px; }
+.progress-bar { flex: 1; height: 6px; background: var(--rs-grey-100); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--rs-green-500); width: 20%; transition: width .3s; }
+.progress-text { font-size: 12px; color: var(--rs-grey-500); font-weight: 500; }
+
+/* Invite callout */
+.invite-callout { margin: 16px 24px; padding: 12px 14px; background: var(--rs-blue-50); border: 1px solid var(--rs-blue-500); border-radius: 8px; display: flex; align-items: center; gap: 10px; }
+.invite-callout .star { color: var(--rs-blue-500); font-size: 14px; }
+.invite-callout .text { flex: 1; font-size: 13px; font-weight: 500; color: var(--rs-grey-900); }
+.invite-callout a { color: var(--rs-blue-500); font-weight: 600; text-decoration: none; font-size: 13px; }
+
+/* Accordion */
+.accordion-list { padding: 4px 0; }
+.acc { border-bottom: 1px solid var(--rs-grey-100); }
+.acc-head { display: flex; align-items: center; gap: 12px; padding: 16px 24px; cursor: pointer; user-select: none; }
+.acc-head:hover { background: var(--rs-grey-50); }
+.acc-icon { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.acc-icon.done { background: var(--rs-green-500); border-radius: 50%; color: white; font-size: 13px; }
+.acc-title { flex: 1; font-size: 14px; font-weight: 500; color: var(--rs-grey-900); }
+.acc-chevron { color: var(--rs-grey-400); font-size: 12px; transition: transform .2s; }
+.acc.open .acc-chevron { transform: rotate(180deg); }
+.acc-body { display: none; padding: 0 24px 20px 60px; }
+.acc.open .acc-body { display: block; }
+.acc-body p { color: var(--rs-grey-600); font-size: 13px; margin-bottom: 12px; }
+.acc-body ol, .acc-body ul { margin: 0 0 14px 18px; color: var(--rs-grey-600); font-size: 13px; }
+.acc-body li { margin-bottom: 4px; }
+.acc-body .actions { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+.acc-body .btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 18px; font-family: var(--rs-font); font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid transparent; text-decoration: none; transition: all .15s; }
+.acc-body .btn-primary { background: var(--rs-blue-500); color: white; }
+.acc-body .btn-primary:hover { background: var(--rs-blue-600); }
+.acc-body .skip-link { color: var(--rs-grey-500); font-size: 13px; cursor: pointer; text-decoration: none; }
+.acc-body .skip-link:hover { color: var(--rs-grey-700); }
+.acc-body .learn-more { color: var(--rs-blue-500); font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+.acc-body .learn-more:hover { text-decoration: underline; }
+
+/* Eng note panel */
+.eng-note { background: #FEF9C3; border: 1px solid #FACC15; border-radius: 6px; padding: 8px 10px; margin-top: 12px; font-size: 11px; color: #713F12; line-height: 1.4; }
+.eng-note strong { color: #422006; }
+.eng-note code { background: #FEF3C7; padding: 1px 4px; border-radius: 3px; font-size: 10px; }
+
+/* Footer */
+.drawer-footer { padding: 16px 24px; border-top: 1px solid var(--rs-grey-100); margin-top: auto; }
+.drawer-footer .completed-state { display: none; text-align: center; padding: 12px; background: var(--rs-green-50); border-radius: 6px; color: var(--rs-grey-700); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <strong>V4 Deeplink Quickstart</strong> — 12-hour MVP. Reuses existing accordion shell. Each step deeplinks to the relevant webapp page where the rich UX lives. Fancy v7 behaviors (SDK picker, autoTrack toggle, instrumentation accordions, destination grid, transformation templates) move to <strong>Amplitude Guides on those pages</strong>.
+  <a href="v3-hybrid.html">View V3 Hybrid (end-state target)</a>
+</div>
+
+<div class="annotation">
+  <strong>Tomorrow's eng spec:</strong> Same accordion component shown in current production screenshots. Steps relabeled, "Make a connection" + "Send an event" removed, "Add a transformation" added (skippable), all CTAs deeplink. Rename "Getting started checklist" → "Quickstart". Drop "Chat with a product specialist". Move "Start growing your team" callout from header → Step 5.
+</div>
+
+<div class="app">
+
+  <!-- faded background -->
+  <div class="bg-mock">
+    <h1>Sources › My First Source</h1>
+    <div class="panel">
+      <p>Connections (0)</p>
+      <p style="margin-top: 16px;">Connect destinations to this source...</p>
+    </div>
+  </div>
+
+  <!-- Quickstart drawer -->
+  <aside class="drawer">
+
+    <div class="drawer-header">
+      <div class="icon">⚡</div>
+      <h2>Quickstart</h2>
+      <span class="close">✕</span>
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text" id="progressText">1 of 5 complete</div>
+    </div>
+
+    <div class="accordion-list">
+
+      <!-- Step 1: Connect Event Stream source (DONE in mock state) -->
+      <div class="acc" data-step="1" data-done="true">
+        <div class="acc-head" onclick="toggle(this)">
+          <div class="acc-icon done">✓</div>
+          <div class="acc-title">Connect an Event Stream source</div>
+          <div class="acc-chevron">▼</div>
+        </div>
+        <div class="acc-body">
+          <p>Track and collect data from your apps, websites, and servers by adding an Event Stream source.</p>
+          <ol>
+            <li>Choose an SDK (JavaScript, Webhook, HTTP, Node.js, mobile, etc.)</li>
+            <li>Name your source</li>
+            <li>Configure auto-track and instrumentation</li>
+          </ol>
+          <div class="actions">
+            <a href="https://app.rudderstack.com/sources/setup" class="btn btn-primary" target="_blank">Add source</a>
+            <a href="https://www.rudderstack.com/docs/sources/" class="learn-more" target="_blank">Learn more ↗</a>
+          </div>
+          <div class="eng-note">
+            <strong>Eng:</strong> CTA deeplinks to <code>/sources/setup</code>. Completion derives from <code>sourcesListStore.sources.some(s =&gt; s.sourceDefinition.category === 'eventStream')</code>. Amplitude Guide on <code>/sources/setup</code> handles SDK picker education + autoTrack toggle education (Daniel-owned, no eng).
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: View live events -->
+      <div class="acc open" data-step="2">
+        <div class="acc-head" onclick="toggle(this)">
+          <div class="acc-icon">▶</div>
+          <div class="acc-title">View live events</div>
+          <div class="acc-chevron">▼</div>
+        </div>
+        <div class="acc-body">
+          <p>See the real-time stream of events flowing from your sources. Verify your instrumentation is working before connecting destinations.</p>
+          <div class="actions">
+            <a href="https://app.rudderstack.com/live-events" class="btn btn-primary" target="_blank">View live events</a>
+            <a href="https://www.rudderstack.com/docs/event-stream/live-events/" class="learn-more" target="_blank">Learn more ↗</a>
+          </div>
+          <div class="eng-note">
+            <strong>Eng:</strong> Deeplink to <code>/sources/{currentSourceId}/live-events</code> when context exists, else <code>/live-events</code>. Completion fires when first event received (server-side <code>eventStreamFirstEventReceived</code>). Amplitude Guide on the page explains page/track/identify call types.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Connect a destination -->
+      <div class="acc" data-step="3">
+        <div class="acc-head" onclick="toggle(this)">
+          <div class="acc-icon">🏁</div>
+          <div class="acc-title">Connect a destination</div>
+          <div class="acc-chevron">▼</div>
+        </div>
+        <div class="acc-body">
+          <p>Send your event data to a warehouse (Snowflake, BigQuery, Databricks) or a cloud destination — analytics, ad platforms, CRMs, marketing automation.</p>
+          <ol>
+            <li>Choose a destination</li>
+            <li>Connect it to your source</li>
+            <li>Configure delivery</li>
+          </ol>
+          <div class="actions">
+            <a href="https://app.rudderstack.com/destinations/setup" class="btn btn-primary" target="_blank">Add destination</a>
+            <a href="https://www.rudderstack.com/docs/destinations/" class="learn-more" target="_blank">Learn more ↗</a>
+          </div>
+          <div class="eng-note">
+            <strong>Eng:</strong> Deeplink to <code>/destinations/setup</code>. Completion: any <code>destinationCreated</code>. <strong>One backend ask:</strong> add <code>destinationCategory</code> to <code>destinationCreated</code> payload (warehouse / cloud_analytics / cloud_ad_platforms / cloud_crm / cloud_marketing_automation) — drives Amplitude Guide targeting for rETL discovery post-completion. If 30+ min of work, punt to URL-based tagging.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Add a transformation (NEW, skippable) -->
+      <div class="acc" data-step="4" data-skippable="true">
+        <div class="acc-head" onclick="toggle(this)">
+          <div class="acc-icon">⚡</div>
+          <div class="acc-title">Add a transformation <span style="color: var(--rs-grey-400); font-weight: 400; font-size: 12px;">(optional)</span></div>
+          <div class="acc-chevron">▼</div>
+        </div>
+        <div class="acc-body">
+          <p>Reshape, mask, or enrich event data in-flight before it hits your destinations. Use JavaScript or Python — common templates handle PII masking, hashing, and property renaming.</p>
+          <div class="actions">
+            <a href="https://app.rudderstack.com/transformations" class="btn btn-primary" target="_blank">Add transformation</a>
+            <a href="#" class="skip-link" onclick="skipStep(4); return false;">Skip for now</a>
+            <a href="https://www.rudderstack.com/docs/transformations/" class="learn-more" target="_blank">Learn more ↗</a>
+          </div>
+          <div class="eng-note">
+            <strong>Eng:</strong> Deeplink to <code>/transformations</code>. Completion: <code>transformationsStore.transformations.length &gt; 0</code> OR Skip click (fires <code>quickStartTransformationSkipped</code>, marks step complete). Amplitude Guide on <code>/transformations</code> surfaces the 3 templates (Mask PII / Hash PII / Rename Properties).
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Invite team -->
+      <div class="acc" data-step="5">
+        <div class="acc-head" onclick="toggle(this)">
+          <div class="acc-icon">👥</div>
+          <div class="acc-title">Invite your team</div>
+          <div class="acc-chevron">▼</div>
+        </div>
+        <div class="acc-body">
+          <p>Bring teammates into your workspace so engineers can instrument, marketers can build audiences, and leaders can see what's flowing.</p>
+          <div class="actions">
+            <a href="https://app.rudderstack.com/settings/members" class="btn btn-primary" target="_blank">Invite teammates</a>
+            <a href="#" class="skip-link" onclick="markSolo(); return false;">It's just me!</a>
+          </div>
+          <div class="eng-note">
+            <strong>Eng:</strong> Reuse existing invite flow at <code>/settings/members</code> (or trigger existing invite modal if available). Completion: <code>≥1 invite sent</code> OR "It's just me!" click (fires <code>quickStartTeamSoloConfirmed</code>).
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="drawer-footer">
+      <div class="completed-state" id="completedState">
+        🎉 Quickstart complete — <a href="#" style="color: var(--rs-blue-500);">explore your workspace →</a>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<script>
+function toggle(headEl) {
+  const acc = headEl.parentElement;
+  acc.classList.toggle('open');
+}
+
+function skipStep(n) {
+  const acc = document.querySelector(`.acc[data-step="${n}"]`);
+  const icon = acc.querySelector('.acc-icon');
+  icon.classList.add('done');
+  icon.textContent = '✓';
+  acc.dataset.done = 'true';
+  acc.classList.remove('open');
+  updateProgress();
+}
+
+function markSolo() {
+  skipStep(5);
+}
+
+function updateProgress() {
+  const total = document.querySelectorAll('.acc').length;
+  const done = document.querySelectorAll('.acc[data-done="true"]').length;
+  document.getElementById('progressFill').style.width = (done / total * 100) + '%';
+  document.getElementById('progressText').textContent = `${done} of ${total} complete`;
+  if (done === total) {
+    document.getElementById('completedState').style.display = 'block';
+  }
+}
+
+updateProgress();
+</script>
+
+</body>
+</html>
