@@ -102,7 +102,7 @@ body { font-family: var(--rs-font); font-size: 14px; color: var(--rs-grey-900); 
 <body>
 
 <div class="banner">
-  <strong>V4 Deeplink Quickstart</strong> — 12-hour MVP. Reuses existing accordion shell. Each step deeplinks to the relevant webapp page where the rich UX lives. Fancy v7 behaviors (SDK picker, autoTrack toggle, instrumentation accordions, destination grid, transformation templates) move to <strong>Amplitude Guides on those pages</strong>.
+  <strong>V4 Deeplink Quickstart</strong> — 12-hour MVP. Reuses existing accordion shell. Each step deeplinks to the relevant webapp page where the rich UX lives. Fancy v7 behaviors (SDK picker, autoTrack toggle, instrumentation accordions, destination grid, transformation templates) move to <strong>Amplitude Guides on those pages</strong>. Includes <code>destinationCategory</code> on <code>destinationCreated</code>.
   <a href="v3-hybrid.html">View V3 Hybrid (end-state target)</a>
 </div>
 
@@ -152,11 +152,11 @@ body { font-family: var(--rs-font); font-size: 14px; color: var(--rs-grey-900); 
             <li>Configure auto-track and instrumentation</li>
           </ol>
           <div class="actions">
-            <a href="https://app.rudderstack.com/sources/setup" class="btn btn-primary" target="_blank">Add source</a>
+            <a href="https://app.rudderstack.com/directory/" class="btn btn-primary" target="_blank">Add source</a>
             <a href="https://www.rudderstack.com/docs/sources/" class="learn-more" target="_blank">Learn more ↗</a>
           </div>
           <div class="eng-note">
-            <strong>Eng:</strong> CTA deeplinks to <code>/sources/setup</code>. Completion derives from <code>sourcesListStore.sources.some(s =&gt; s.sourceDefinition.category === 'eventStream')</code>. Amplitude Guide on <code>/sources/setup</code> handles SDK picker education + autoTrack toggle education (Daniel-owned, no eng).
+            <strong>Eng:</strong> CTA deeplinks to <code>/directory/</code> with the <strong>Sources tab</strong> open by default. Completion: <code>sourcesListStore.sources.some(s =&gt; s.sourceDefinition.category === 'eventStream')</code>. Amplitude Guide on <code>/directory/</code> handles SDK picker education + autoTrack toggle education (Daniel-owned, no eng).
           </div>
         </div>
       </div>
@@ -171,11 +171,11 @@ body { font-family: var(--rs-font); font-size: 14px; color: var(--rs-grey-900); 
         <div class="acc-body">
           <p>See the real-time stream of events flowing from your sources. Verify your instrumentation is working before connecting destinations.</p>
           <div class="actions">
-            <a href="https://app.rudderstack.com/live-events" class="btn btn-primary" target="_blank">View live events</a>
+            <a href="https://app.rudderstack.com/sources/live/" class="btn btn-primary" target="_blank">View live events</a>
             <a href="https://www.rudderstack.com/docs/event-stream/live-events/" class="learn-more" target="_blank">Learn more ↗</a>
           </div>
           <div class="eng-note">
-            <strong>Eng:</strong> Deeplink to <code>/sources/{currentSourceId}/live-events</code> when context exists, else <code>/live-events</code>. Completion fires when first event received (server-side <code>eventStreamFirstEventReceived</code>). Amplitude Guide on the page explains page/track/identify call types.
+            <strong>Eng:</strong> Deeplink to <code>/sources/live/{resourceId}</code> where <code>resourceId</code> is the most recently created Event Stream source ID from Step 1. If multiple sources exist, use first/primary. Completion: server-side <code>eventStreamFirstEventReceived</code> fires on first event for that source. Amplitude Guide on the page explains page/track/identify call types.
           </div>
         </div>
       </div>
@@ -195,11 +195,11 @@ body { font-family: var(--rs-font); font-size: 14px; color: var(--rs-grey-900); 
             <li>Configure delivery</li>
           </ol>
           <div class="actions">
-            <a href="https://app.rudderstack.com/destinations/setup" class="btn btn-primary" target="_blank">Add destination</a>
+            <a href="https://app.rudderstack.com/directory" class="btn btn-primary" target="_blank">Add destination</a>
             <a href="https://www.rudderstack.com/docs/destinations/" class="learn-more" target="_blank">Learn more ↗</a>
           </div>
           <div class="eng-note">
-            <strong>Eng:</strong> Deeplink to <code>/destinations/setup</code>. Completion: any <code>destinationCreated</code>. <strong>One backend ask:</strong> add <code>destinationCategory</code> to <code>destinationCreated</code> payload (warehouse / cloud_analytics / cloud_ad_platforms / cloud_crm / cloud_marketing_automation) — drives Amplitude Guide targeting for rETL discovery post-completion. If 30+ min of work, punt to URL-based tagging.
+            <strong>Eng:</strong> Deeplink to <code>/directory</code> with the <strong>Destinations tab</strong> open by default. Completion: any <code>destinationCreated</code>. <strong>In scope this pass:</strong> add <code>destinationCategory</code> to <code>destinationCreated</code> payload — values: <code>warehouse</code> | <code>cloud_analytics</code> | <code>cloud_ad_platforms</code> | <code>cloud_crm</code> | <code>cloud_marketing_automation</code>. Drives Amplitude Guide targeting for rETL discovery post-completion. Map from existing destination definition category metadata.
           </div>
         </div>
       </div>
@@ -214,12 +214,12 @@ body { font-family: var(--rs-font); font-size: 14px; color: var(--rs-grey-900); 
         <div class="acc-body">
           <p>Reshape, mask, or enrich event data in-flight before it hits your destinations. Use JavaScript or Python — common templates handle PII masking, hashing, and property renaming.</p>
           <div class="actions">
-            <a href="https://app.rudderstack.com/transformations" class="btn btn-primary" target="_blank">Add transformation</a>
+            <a href="https://app.rudderstack.com/transformations/add" class="btn btn-primary" target="_blank">Add transformation</a>
             <a href="#" class="skip-link" onclick="skipStep(4); return false;">Skip for now</a>
             <a href="https://www.rudderstack.com/docs/transformations/" class="learn-more" target="_blank">Learn more ↗</a>
           </div>
           <div class="eng-note">
-            <strong>Eng:</strong> Deeplink to <code>/transformations</code>. Completion: <code>transformationsStore.transformations.length &gt; 0</code> OR Skip click (fires <code>quickStartTransformationSkipped</code>, marks step complete). Amplitude Guide on <code>/transformations</code> surfaces the 3 templates (Mask PII / Hash PII / Rename Properties).
+            <strong>Eng:</strong> Deeplink to <code>/transformations/add</code>. Completion: <code>transformationsStore.transformations.length &gt; 0</code> OR Skip click (fires <code>quickStartTransformationSkipped</code>, marks step complete). Amplitude Guide on <code>/transformations/add</code> surfaces the 3 templates (Mask PII / Hash PII / Rename Properties).
           </div>
         </div>
       </div>
@@ -234,11 +234,11 @@ body { font-family: var(--rs-font); font-size: 14px; color: var(--rs-grey-900); 
         <div class="acc-body">
           <p>Bring teammates into your workspace so engineers can instrument, marketers can build audiences, and leaders can see what's flowing.</p>
           <div class="actions">
-            <a href="https://app.rudderstack.com/settings/members" class="btn btn-primary" target="_blank">Invite teammates</a>
+            <a href="#" class="btn btn-primary" onclick="alert('Triggers existing invite modal'); return false;">Invite teammates</a>
             <a href="#" class="skip-link" onclick="markSolo(); return false;">It's just me!</a>
           </div>
           <div class="eng-note">
-            <strong>Eng:</strong> Reuse existing invite flow at <code>/settings/members</code> (or trigger existing invite modal if available). Completion: <code>≥1 invite sent</code> OR "It's just me!" click (fires <code>quickStartTeamSoloConfirmed</code>).
+            <strong>Eng:</strong> <strong>Trigger the existing invite modal</strong> (the one currently used elsewhere in-app — it has no URL of its own). Fallback if the modal can't be triggered from the drawer: deeplink to <code>/accessManagement?tab=invitations</code>. Completion: <code>≥1 invite sent</code> OR "It's just me!" click (fires <code>quickStartTeamSoloConfirmed</code>).
           </div>
         </div>
       </div>
