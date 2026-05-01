@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RudderStack PLG Onboarding — V5 Persistent Rail Quickstart (post-Mike-call, May 12)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rs-blue-500: #105ED5;
+  --rs-blue-50: #EBF3FD;
+  --rs-blue-600: #0D4EA8;
+  --rs-green-500: #02BB7F;
+  --rs-green-50: #E6F8F1;
+  --rs-grey-0: #FFFFFF;
+  --rs-grey-50: #F5F6F8;
+  --rs-grey-100: #D8DEE4;
+  --rs-grey-200: #B6C0CD;
+  --rs-grey-300: #99A5B8;
+  --rs-grey-400: #818DA0;
+  --rs-grey-500: #6C7688;
+  --rs-grey-600: #596171;
+  --rs-grey-700: #474E5A;
+  --rs-grey-800: #353A44;
+  --rs-grey-900: #21252C;
+  --rs-font: 'Inter', system-ui, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--rs-font); font-size: 14px; color: var(--rs-grey-900); background: var(--rs-grey-50); line-height: 1.5; }
+
+/* Banner */
+.banner { background: linear-gradient(135deg, var(--rs-blue-500), #5B7AE8); color: white; padding: 10px 24px; font-size: 12px; text-align: center; }
+.banner strong { font-weight: 600; }
+.banner a { color: white; text-decoration: underline; margin-left: 8px; }
+
+/* Annotation */
+.annotation { background: #FFF7ED; border-bottom: 1px solid #FED7AA; padding: 12px 24px; font-size: 13px; color: #9A3412; max-width: 1400px; margin: 0 auto; }
+.annotation strong { font-weight: 600; }
+
+/* App layout — three columns: collapsed nav | quickstart rail | main content */
+.app { display: flex; height: calc(100vh - 86px); overflow: hidden; }
+
+/* Column 1: Collapsed nav sidebar (icons only) */
+.nav-rail { width: 56px; background: var(--rs-grey-900); display: flex; flex-direction: column; align-items: center; padding: 16px 0; gap: 12px; flex-shrink: 0; }
+.nav-rail .logo { width: 32px; height: 32px; background: var(--rs-blue-500); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+.nav-rail .nav-icon { width: 36px; height: 36px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--rs-grey-400); cursor: pointer; transition: all .15s; font-size: 16px; }
+.nav-rail .nav-icon:hover { background: var(--rs-grey-800); color: white; }
+.nav-rail .nav-icon.active { background: var(--rs-grey-800); color: white; }
+.nav-rail .nav-spacer { flex: 1; }
+
+/* Column 2: Quickstart rail (always-on persistent panel) */
+.qs-rail { width: 340px; background: white; border-right: 1px solid var(--rs-grey-100); display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto; }
+
+.qs-header { display: flex; align-items: center; gap: 10px; padding: 18px 20px 14px; border-bottom: 1px solid var(--rs-grey-100); position: sticky; top: 0; background: white; z-index: 5; }
+.qs-header .icon { font-size: 16px; }
+.qs-header h2 { font-size: 15px; font-weight: 600; flex: 1; }
+.qs-header .min { color: var(--rs-grey-400); cursor: pointer; font-size: 14px; padding: 4px; }
+.qs-header .min:hover { color: var(--rs-grey-700); }
+
+/* Progress */
+.qs-progress { padding: 12px 20px; border-bottom: 1px solid var(--rs-grey-100); display: flex; align-items: center; gap: 10px; }
+.qs-progress-bar { flex: 1; height: 5px; background: var(--rs-grey-100); border-radius: 3px; overflow: hidden; }
+.qs-progress-fill { height: 100%; background: var(--rs-green-500); width: 20%; transition: width .3s; }
+.qs-progress-text { font-size: 11px; color: var(--rs-grey-500); font-weight: 600; }
+
+/* Steps */
+.qs-steps { padding: 8px 0; }
+.qs-step { border-bottom: 1px solid var(--rs-grey-100); }
+.qs-step-head { display: flex; align-items: center; gap: 10px; padding: 14px 20px; cursor: pointer; }
+.qs-step-head:hover { background: var(--rs-grey-50); }
+.qs-step.active .qs-step-head { background: var(--rs-blue-50); }
+.qs-step-icon { width: 22px; height: 22px; border-radius: 50%; background: var(--rs-grey-100); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--rs-grey-500); flex-shrink: 0; }
+.qs-step.done .qs-step-icon { background: var(--rs-green-500); color: white; font-size: 12px; }
+.qs-step.active .qs-step-icon { background: var(--rs-blue-500); color: white; }
+.qs-step-title { flex: 1; font-size: 13px; font-weight: 500; }
+.qs-step-chevron { color: var(--rs-grey-400); font-size: 10px; transition: transform .2s; }
+.qs-step.open .qs-step-chevron { transform: rotate(180deg); }
+.qs-step-body { display: none; padding: 0 20px 16px 50px; }
+.qs-step.open .qs-step-body { display: block; }
+.qs-step-body p { color: var(--rs-grey-600); font-size: 12.5px; margin-bottom: 10px; }
+.qs-step-body .actions { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.qs-step-body .row-actions { display: flex; align-items: center; gap: 12px; }
+.qs-step-body .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding: 0 14px; border-radius: 16px; font-family: var(--rs-font); font-size: 12.5px; font-weight: 500; cursor: pointer; border: 1px solid transparent; text-decoration: none; transition: all .15s; }
+.qs-step-body .btn-primary { background: var(--rs-blue-500); color: white; }
+.qs-step-body .btn-primary:hover { background: var(--rs-blue-600); }
+.qs-step-body .skip { color: var(--rs-grey-500); font-size: 12px; cursor: pointer; text-decoration: none; }
+.qs-step-body .skip:hover { color: var(--rs-grey-700); }
+.qs-step-body .secondary-link { color: var(--rs-blue-500); font-size: 12px; text-decoration: none; }
+.qs-step-body .secondary-link:hover { text-decoration: underline; }
+
+.eng-note { background: #FEF9C3; border: 1px solid #FACC15; border-radius: 5px; padding: 7px 9px; margin-top: 10px; font-size: 10.5px; color: #713F12; line-height: 1.45; }
+.eng-note strong { color: #422006; }
+.eng-note code { background: #FEF3C7; padding: 1px 4px; border-radius: 3px; font-size: 10px; }
+
+/* Explore more (Mike's "extended functionality" affordances) */
+.qs-explore { border-top: 1px solid var(--rs-grey-100); padding: 16px 20px; background: var(--rs-grey-50); }
+.qs-explore h3 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--rs-grey-500); margin-bottom: 10px; }
+.qs-explore-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 6px; cursor: pointer; transition: background .15s; }
+.qs-explore-item:hover { background: white; }
+.qs-explore-item .ei-icon { font-size: 14px; }
+.qs-explore-item .ei-text { flex: 1; font-size: 12.5px; color: var(--rs-grey-700); }
+.qs-explore-item .ei-arrow { color: var(--rs-grey-400); font-size: 11px; }
+.qs-explore-item .ei-badge { background: var(--rs-grey-100); color: var(--rs-grey-600); font-size: 10px; padding: 1px 6px; border-radius: 8px; font-weight: 600; text-transform: uppercase; }
+
+/* Column 3: Main content (the deeplinked webapp page) */
+.main-content { flex: 1; background: var(--rs-grey-50); display: flex; flex-direction: column; overflow: hidden; }
+.main-topbar { height: 48px; background: white; border-bottom: 1px solid var(--rs-grey-100); display: flex; align-items: center; padding: 0 24px; gap: 12px; flex-shrink: 0; }
+.main-topbar .breadcrumb { font-size: 13px; color: var(--rs-grey-500); }
+.main-topbar .breadcrumb strong { color: var(--rs-grey-900); font-weight: 500; }
+.main-tabs { display: flex; gap: 4px; background: white; border-bottom: 1px solid var(--rs-grey-100); padding: 0 24px; }
+.main-tab { padding: 12px 16px; font-size: 13px; font-weight: 500; color: var(--rs-grey-500); cursor: pointer; border-bottom: 2px solid transparent; }
+.main-tab.active { color: var(--rs-blue-500); border-bottom-color: var(--rs-blue-500); }
+.main-body { flex: 1; padding: 24px; overflow-y: auto; }
+.main-body h1 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+
+.dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 16px; }
+.dest-tile { background: white; border: 1px solid var(--rs-grey-100); border-radius: 8px; padding: 14px; cursor: pointer; transition: all .15s; }
+.dest-tile:hover { border-color: var(--rs-blue-500); box-shadow: 0 2px 8px rgba(16,94,213,.08); }
+.dest-tile .dt-logo { width: 32px; height: 32px; background: var(--rs-grey-100); border-radius: 6px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--rs-grey-700); }
+.dest-tile .dt-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+.dest-tile .dt-cat { font-size: 11px; color: var(--rs-grey-500); }
+
+/* Persistence indicator */
+.persist-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--rs-blue-50); color: var(--rs-blue-500); padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; margin-left: auto; }
+.persist-badge .dot { width: 6px; height: 6px; background: var(--rs-blue-500); border-radius: 50%; }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <strong>V5 Persistent Rail Quickstart</strong> — post-Mike-call (April 29) v9 spec for May 12 launch. Drawer replaced with always-on left panel. Sidebar collapses to icons. Main content shows the deeplinked webapp page. <code>fromQuickstart</code> property persists across navigation.
+  <a href="v4-deeplink.html">View V4 Drawer (superseded)</a>
+  <a href="v3-hybrid.html">View V3 Hybrid (Phase 3 end-state)</a>
+</div>
+
+<div class="annotation">
+  <strong>Mike's call (Apr 29):</strong> "I don't like the drawer stuff — you easily lose your context. I'd prefer a dedicated [persistent panel] where the user always sees the steps, gets immediate feedback when something is done, and can immediately go to the next step." This prototype implements that: nav sidebar collapses to icons (left), Quickstart rail always visible (middle), webapp deeplink target renders in main content (right). Steps reorder per Mike: <strong>source → destination → live events → transformation → invite.</strong>
+</div>
+
+<div class="app">
+
+  <!-- Column 1: Collapsed nav rail -->
+  <aside class="nav-rail">
+    <div class="logo">RS</div>
+    <div class="nav-icon" title="Connections">🔗</div>
+    <div class="nav-icon" title="Sources">📥</div>
+    <div class="nav-icon active" title="Destinations">🎯</div>
+    <div class="nav-icon" title="Transformations">⚡</div>
+    <div class="nav-icon" title="Tracking Plans">📋</div>
+    <div class="nav-icon" title="Data Catalog">📚</div>
+    <div class="nav-spacer"></div>
+    <div class="nav-icon" title="Settings">⚙️</div>
+  </aside>
+
+  <!-- Column 2: Quickstart rail -->
+  <aside class="qs-rail">
+
+    <div class="qs-header">
+      <div class="icon">⚡</div>
+      <h2>Quickstart</h2>
+      <span class="min" title="Minimize (return to standard layout)">‹‹</span>
+    </div>
+
+    <div class="qs-progress">
+      <div class="qs-progress-bar"><div class="qs-progress-fill" id="progressFill"></div></div>
+      <div class="qs-progress-text" id="progressText">1 / 5</div>
+    </div>
+
+    <div class="qs-steps">
+
+      <!-- Step 1 (DONE) -->
+      <div class="qs-step done open" data-step="1" data-done="true">
+        <div class="qs-step-head" onclick="toggle(this)">
+          <div class="qs-step-icon">✓</div>
+          <div class="qs-step-title">Connect an Event Stream source</div>
+          <div class="qs-step-chevron">▼</div>
+        </div>
+        <div class="qs-step-body">
+          <p>Track and collect data from your apps, websites, and servers. ✓ JavaScript SDK source created.</p>
+          <div class="actions">
+            <div class="row-actions">
+              <a href="https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/" class="secondary-link" target="_blank">📘 Instrument events (docs) ↗</a>
+            </div>
+          </div>
+          <div class="eng-note">
+            <strong>v9 change:</strong> autoTrack toggle / Copy-all snippet <strong>deferred</strong> per Mike — needs exploration. For MVP: just deeplink + docs link as inline secondary CTA. Amplitude Guide on <code>/directory/</code> Sources tab handles SDK education.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 (ACTIVE — deeplinked into main content) -->
+      <div class="qs-step active open" data-step="2">
+        <div class="qs-step-head" onclick="toggle(this)">
+          <div class="qs-step-icon">2</div>
+          <div class="qs-step-title">Connect a destination</div>
+          <div class="qs-step-chevron">▼</div>
+        </div>
+        <div class="qs-step-body">
+          <p>Send your event data to a warehouse (Snowflake, BigQuery, Databricks) or a cloud destination — analytics, ad platforms, CRMs, marketing automation.</p>
+          <div class="actions">
+            <div class="row-actions">
+              <a href="#" class="btn btn-primary" onclick="return false;">Add destination →</a>
+              <a href="https://www.rudderstack.com/docs/destinations/" class="secondary-link" target="_blank">Learn more ↗</a>
+            </div>
+          </div>
+          <div class="eng-note">
+            <strong>Eng:</strong> Deeplinks to <code>/directory?tab=destinations</code> (or whatever Mike's tab-state mechanism resolves to — see open Q). Sets <code>workspaceStore.fromQuickstart = true</code> in localStorage so the rail re-opens on return. Completion: any <code>destinationCreated</code> with <code>destinationCategory</code>.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="qs-step" data-step="3">
+        <div class="qs-step-head" onclick="toggle(this)">
+          <div class="qs-step-icon">3</div>
+          <div class="qs-step-title">View live events</div>
+          <div class="qs-step-chevron">▼</div>
+        </div>
+        <div class="qs-step-body">
+          <p>See the real-time stream of events flowing from your source.</p>
+          <div class="row-actions">
+            <a href="https://app.rudderstack.com/sources/live/" class="btn btn-primary" target="_blank">View live events</a>
+            <a href="https://www.rudderstack.com/docs/event-stream/live-events/" class="secondary-link" target="_blank">Learn more ↗</a>
+          </div>
+          <div class="eng-note">
+            <strong>Eng:</strong> <code>/sources/live/{resourceId}</code> — resourceId from Step 1 source. Completion: server-side <code>eventStreamFirstEventReceived</code>.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 (skippable) -->
+      <div class="qs-step" data-step="4" data-skippable="true">
+        <div class="qs-step-head" onclick="toggle(this)">
+          <div class="qs-step-icon">4</div>
+          <div class="qs-step-title">Add a transformation <span style="color: var(--rs-grey-400); font-weight: 400; font-size: 11px;">(optional)</span></div>
+          <div class="qs-step-chevron">▼</div>
+        </div>
+        <div class="qs-step-body">
+          <p>Reshape, mask, or enrich event data in-flight. Use JavaScript or Python.</p>
+          <div class="row-actions">
+            <a href="https://app.rudderstack.com/transformations/add" class="btn btn-primary" target="_blank">Add transformation</a>
+            <a href="#" class="skip" onclick="skipStep(4); return false;">Skip for now</a>
+          </div>
+          <div class="eng-note">
+            <strong>Eng:</strong> <code>/transformations/add</code>. Skip click fires <code>quickStartTransformationSkipped</code> + marks step complete.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="qs-step" data-step="5">
+        <div class="qs-step-head" onclick="toggle(this)">
+          <div class="qs-step-icon">5</div>
+          <div class="qs-step-title">Invite your team</div>
+          <div class="qs-step-chevron">▼</div>
+        </div>
+        <div class="qs-step-body">
+          <p>Bring teammates into your workspace.</p>
+          <div class="row-actions">
+            <a href="#" class="btn btn-primary" onclick="alert('Triggers existing invite modal'); return false;">Invite teammates</a>
+            <a href="#" class="skip" onclick="skipStep(5); return false;">It's just me!</a>
+          </div>
+          <div class="eng-note">
+            <strong>Eng:</strong> Trigger existing invite modal directly. Fallback: <code>/accessManagement?tab=invitations</code>. "It's just me!" fires <code>quickStartTeamSoloConfirmed</code> + completes.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mike's "Explore more" extended functionality affordances -->
+    <div class="qs-explore">
+      <h3>Explore more</h3>
+      <div class="qs-explore-item">
+        <div class="ei-icon">🔄</div>
+        <div class="ei-text">Sync warehouse data with Reverse ETL</div>
+        <div class="ei-arrow">→</div>
+      </div>
+      <div class="qs-explore-item">
+        <div class="ei-icon">📋</div>
+        <div class="ei-text">Govern data with Tracking Plans</div>
+        <div class="ei-arrow">→</div>
+      </div>
+      <div class="qs-explore-item">
+        <div class="ei-icon">📚</div>
+        <div class="ei-text">Catalog events &amp; properties</div>
+        <div class="ei-arrow">→</div>
+      </div>
+      <div class="qs-explore-item">
+        <div class="ei-icon">👥</div>
+        <div class="ei-text">Build Audiences <span class="ei-badge">Beta</span></div>
+        <div class="ei-arrow">→</div>
+      </div>
+      <div class="eng-note" style="margin-top: 10px;">
+        <strong>Mike:</strong> "Extended functionality" CTAs — not steps, just discovery. Mike to add if time permits in MVP; otherwise Phase 2 fast-follow. Each CTA deeplinks to feature page; Amplitude Guides on those pages handle education.
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Column 3: Main content (deeplinked page renders here) -->
+  <main class="main-content">
+    <div class="main-topbar">
+      <div class="breadcrumb">Directory › <strong>Destinations</strong></div>
+      <div class="persist-badge"><span class="dot"></span> Quickstart active</div>
+    </div>
+    <div class="main-tabs">
+      <div class="main-tab">Sources</div>
+      <div class="main-tab active">Destinations</div>
+    </div>
+    <div class="main-body">
+      <h1>Choose a destination</h1>
+      <p style="color: var(--rs-grey-600);">Send your event data to one of 200+ destinations. Categories: warehouse, analytics, ad platforms, CRMs, marketing automation.</p>
+      <div class="dest-grid">
+        <div class="dest-tile"><div class="dt-logo">SF</div><div class="dt-name">Snowflake</div><div class="dt-cat">Warehouse</div></div>
+        <div class="dest-tile"><div class="dt-logo">BQ</div><div class="dt-name">BigQuery</div><div class="dt-cat">Warehouse</div></div>
+        <div class="dest-tile"><div class="dt-logo">DB</div><div class="dt-name">Databricks</div><div class="dt-cat">Warehouse</div></div>
+        <div class="dest-tile"><div class="dt-logo">GA</div><div class="dt-name">GA4</div><div class="dt-cat">Analytics</div></div>
+        <div class="dest-tile"><div class="dt-logo">MX</div><div class="dt-name">Mixpanel</div><div class="dt-cat">Analytics</div></div>
+        <div class="dest-tile"><div class="dt-logo">AM</div><div class="dt-name">Amplitude</div><div class="dt-cat">Analytics</div></div>
+        <div class="dest-tile"><div class="dt-logo">FB</div><div class="dt-name">Meta Ads</div><div class="dt-cat">Ad platform</div></div>
+        <div class="dest-tile"><div class="dt-logo">GAds</div><div class="dt-name">Google Ads</div><div class="dt-cat">Ad platform</div></div>
+        <div class="dest-tile"><div class="dt-logo">HS</div><div class="dt-name">HubSpot</div><div class="dt-cat">CRM</div></div>
+        <div class="dest-tile"><div class="dt-logo">SF2</div><div class="dt-name">Salesforce</div><div class="dt-cat">CRM</div></div>
+        <div class="dest-tile"><div class="dt-logo">BZ</div><div class="dt-name">Braze</div><div class="dt-cat">Marketing auto</div></div>
+        <div class="dest-tile"><div class="dt-logo">CIO</div><div class="dt-name">Customer.io</div><div class="dt-cat">Marketing auto</div></div>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script>
+function toggle(headEl) { headEl.parentElement.classList.toggle('open'); }
+function skipStep(n) {
+  const step = document.querySelector(`.qs-step[data-step="${n}"]`);
+  step.classList.add('done');
+  step.querySelector('.qs-step-icon').textContent = '✓';
+  step.dataset.done = 'true';
+  step.classList.remove('open');
+  updateProgress();
+}
+function updateProgress() {
+  const total = document.querySelectorAll('.qs-step').length;
+  const done = document.querySelectorAll('.qs-step[data-done="true"]').length;
+  document.getElementById('progressFill').style.width = (done / total * 100) + '%';
+  document.getElementById('progressText').textContent = `${done} / ${total}`;
+}
+updateProgress();
+</script>
+
+</body>
+</html>
