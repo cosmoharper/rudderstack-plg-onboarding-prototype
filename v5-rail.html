@@ -163,27 +163,28 @@ body { font-family: var(--rs-font); font-size: 14px; color: var(--rs-grey-900); 
 
     <div class="qs-progress">
       <div class="qs-progress-bar"><div class="qs-progress-fill" id="progressFill"></div></div>
-      <div class="qs-progress-text" id="progressText">1 / 5</div>
+      <div class="qs-progress-text" id="progressText">0 / 5</div>
     </div>
 
     <div class="qs-steps">
 
-      <!-- Step 1 (DONE) -->
-      <div class="qs-step done open" data-step="1" data-done="true">
+      <!-- Step 1 (open, default — shows both CTAs) -->
+      <div class="qs-step open" data-step="1">
         <div class="qs-step-head" onclick="toggle(this)">
-          <div class="qs-step-icon">✓</div>
+          <div class="qs-step-icon">1</div>
           <div class="qs-step-title">Connect an Event Stream source</div>
           <div class="qs-step-chevron">▼</div>
         </div>
         <div class="qs-step-body">
-          <p>Track and collect data from your apps, websites, and servers. ✓ JavaScript SDK source created.</p>
+          <p>Track and collect data from your apps, websites, and servers. Choose the SDK that matches your stack — JavaScript, Node, Python, mobile, server-side, Webhook, HTTP, and more.</p>
           <div class="actions">
             <div class="row-actions">
-              <a href="https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/" class="secondary-link" target="_blank">📘 Instrument events (docs) ↗</a>
+              <a href="https://app.rudderstack.com/directory/" class="btn btn-primary" target="_blank">Add source →</a>
+              <a href="https://www.rudderstack.com/docs/sources/event-streams/sdks/" class="secondary-link" target="_blank">📘 Instrument events (docs) ↗</a>
             </div>
           </div>
           <div class="eng-note">
-            <strong>v9 change:</strong> autoTrack toggle / Copy-all snippet <strong>deferred</strong> per Mike — needs exploration. For MVP: just deeplink + docs link as inline secondary CTA. Amplitude Guide on <code>/directory/</code> Sources tab handles SDK education.
+            <strong>Eng:</strong> Two affordances. (1) Primary <code>Add source</code> deeplinks to <code>/directory/</code> with Sources tab open. (2) Secondary docs link to <code>/docs/sources/event-streams/sdks/</code> — SDK index, NOT JS-specific (we don't assume the user's stack). Amplitude Guide on <code>/directory/</code> Sources tab handles SDK education in-app. autoTrack toggle / Copy-all snippet <strong>deferred</strong> per Mike — needs exploration; returns Phase 2.
           </div>
         </div>
       </div>
